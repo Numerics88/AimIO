@@ -1,0 +1,16 @@
+# Config file for the AimIO package
+#
+# AIMIO_INCLUDE_DIRS - where to find .h files for AimIO
+# AIMIO_LIBRARIES    - libraries to link against
+
+# Compute paths
+get_filename_component(AIMIO_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(AIMIO_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+if(NOT TARGET AimIO AND NOT AimIO_BINARY_DIR)
+  include("${AIMIO_CMAKE_DIR}/AimIOTargets.cmake")
+endif()
+
+# These are IMPORTED targets created by AimIOTargets.cmake
+set(AIMIO_LIBRARIES AimIO)
