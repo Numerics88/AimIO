@@ -124,8 +124,8 @@ configure_file(AimIOConfigVersion.cmake.in
 install(FILES
     "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/AimIOConfig.cmake"
     "${PROJECT_BINARY_DIR}/AimIOConfigVersion.cmake"
-    DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+    DESTINATION "${INSTALL_CMAKE_DIR}")
  
 # Install the export set for use with the install-tree
 install(EXPORT AimIOTargets DESTINATION
-  "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+  "${INSTALL_CMAKE_DIR}")
