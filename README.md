@@ -74,7 +74,7 @@ Here is an example of writing an AIM file:
 
 ```C++
 // Create some data. This is type char, but short and float are also possible
-n88::Tuple<3,int> dim (25,25,25);
+n88::tuplet<3,int> dim (25,25,25);
 // std::vector is not required: any way you use to store image data is OK,
 // so long as you can get a pointer to it.
 std::vector<char> image_data (long_product(dim));
@@ -85,9 +85,9 @@ std::vector<char> image_data (long_product(dim));
 AimIO::AimFile writer ("myfile.aim");
 
 // Set some parameters.
-writer.position = n88::Tuple<3,int>(195,212,50);
+writer.position = n88::tuplet<3,int>(195,212,50);
 writer.dimensions = dim;
-writer.element_size = n88::Tuple<3,float>(0.034,0.034,0.034);
+writer.element_size = n88::tuplet<3,float>(0.034,0.034,0.034);
 writer.processing_log = "Processed by MI5. Approved by K. Philby";
 
 // Write the file.

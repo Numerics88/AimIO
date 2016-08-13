@@ -11,7 +11,7 @@
 
 
 using namespace boost::endian;
-using n88::Tuple;
+using n88::tuplet;
 
 namespace AimIO
 {
@@ -50,10 +50,10 @@ typedef struct
   little_int32_t           id;
   little_int32_t           ref;
   little_int32_t           type;
-  Tuple<3,little_int32_t>  dim;
-  Tuple<3,little_int32_t>  off;
-  Tuple<3,little_int32_t>  subdim;
-  Tuple<3,little_int32_t>  pos;
+  tuplet<3,little_int32_t>  dim;
+  tuplet<3,little_int32_t>  off;
+  tuplet<3,little_int32_t>  subdim;
+  tuplet<3,little_int32_t>  pos;
   float                    el_size_mm;
   D1FileData020            assoc;
 } D3FileImage010;
@@ -65,10 +65,10 @@ typedef struct
   little_int32_t           id;
   little_int32_t           ref;
   little_int32_t           type;
-  Tuple<3,little_int32_t>  dim;
-  Tuple<3,little_int32_t>  off;
-  Tuple<3,little_int32_t>  subdim;
-  Tuple<3,little_int32_t>  pos;
+  tuplet<3,little_int32_t>  dim;
+  tuplet<3,little_int32_t>  off;
+  tuplet<3,little_int32_t>  subdim;
+  tuplet<3,little_int32_t>  pos;
   float                    el_size_mm;
   D1FileData020            assoc;
   char_occupy_4bytes_t     version;
@@ -82,14 +82,14 @@ typedef struct
   little_int32_t           id;
   little_int32_t           ref;
   little_int32_t           type;
-  Tuple<3,little_int32_t>  pos;
-  Tuple<3,little_int32_t>  dim;
-  Tuple<3,little_int32_t>  off;
-  Tuple<3,little_int32_t>  supdim;
-  Tuple<3,little_int32_t>  suppos;
-  Tuple<3,little_int32_t>  subdim;
-  Tuple<3,little_int32_t>  testoff;
-  Tuple<3,float>           el_size_mm;
+  tuplet<3,little_int32_t>  pos;
+  tuplet<3,little_int32_t>  dim;
+  tuplet<3,little_int32_t>  off;
+  tuplet<3,little_int32_t>  supdim;
+  tuplet<3,little_int32_t>  suppos;
+  tuplet<3,little_int32_t>  subdim;
+  tuplet<3,little_int32_t>  testoff;
+  tuplet<3,float>           el_size_mm;
   D1FileData020            assoc;
 } D3FileImage020;
 
@@ -99,14 +99,14 @@ typedef struct
   little_int32_t           id;
   little_int32_t           ref;
   little_int32_t           type;
-  Tuple<3,little_int64_t>  pos;
-  Tuple<3,little_int64_t>  dim;
-  Tuple<3,little_int64_t>  off;
-  Tuple<3,little_int64_t>  supdim;
-  Tuple<3,little_int64_t>  suppos;
-  Tuple<3,little_int64_t>  subdim;
-  Tuple<3,little_int64_t>  testoff;
-  Tuple<3,little_int64_t>  el_size_nano;
+  tuplet<3,little_int64_t>  pos;
+  tuplet<3,little_int64_t>  dim;
+  tuplet<3,little_int64_t>  off;
+  tuplet<3,little_int64_t>  supdim;
+  tuplet<3,little_int64_t>  suppos;
+  tuplet<3,little_int64_t>  subdim;
+  tuplet<3,little_int64_t>  testoff;
+  tuplet<3,little_int64_t>  el_size_nano;
   D1FileData030            assoc;
 } D3FileImage030;
 
@@ -263,7 +263,7 @@ void AimFile::ReadHeader (std::ifstream& f)
     this->suppos       = fd.suppos;
     this->subdim       = fd.subdim;
     this->testoff      = fd.testoff;
-    this->element_size = n88::Tuple<3,float>(fd.el_size_nano)/1.E6f;
+    this->element_size = n88::tuplet<3,float>(fd.el_size_nano)/1.E6f;
     this->assoc_id     = fd.assoc.id;
     this->assoc_nr     = fd.assoc.nr;
     this->assoc_size   = fd.assoc.size;
@@ -311,7 +311,7 @@ void AimFile::ReadHeader (std::ifstream& f)
     this->offset       = fd.off;
     this->subdim       = fd.subdim;
     float es           = vms_to_native (fd.el_size_mm);
-    this->element_size = n88::Tuple<3,float>(es,es,es);
+    this->element_size = n88::tuplet<3,float>(es,es,es);
     this->assoc_id     = fd.assoc.id;
     this->assoc_nr     = fd.assoc.nr;
     this->assoc_size   = fd.assoc.size;
@@ -332,7 +332,7 @@ void AimFile::ReadHeader (std::ifstream& f)
     this->offset       = fd.off;
     this->subdim       = fd.subdim;
     float es           = vms_to_native (fd.el_size_mm);
-    this->element_size = n88::Tuple<3,float>(es,es,es);
+    this->element_size = n88::tuplet<3,float>(es,es,es);
     this->assoc_id     = fd.assoc.id;
     this->assoc_nr     = fd.assoc.nr;
     this->assoc_size   = fd.assoc.size;
@@ -617,7 +617,7 @@ void AimFile::WriteImageData (const char* data)
   // Intelligent selection of compression scheme if not explicitly set.
   if (this->aim_type == AIMFILE_TYPE_D1Tundef)
   {
-    if ((this->offset != Tuple<3,int>(0,0,0)))
+    if ((this->offset != tuplet<3,int>(0,0,0)))
     {
       // Compression is incompatible with non-zero offset.
       this->aim_type = AIMFILE_TYPE_D1Tchar;
@@ -671,7 +671,7 @@ void AimFile::WriteImageData (const char* data)
       this->aim_type == AIMFILE_TYPE_D1TcharCmp ||
       this->aim_type == AIMFILE_TYPE_D1TbinCmp)
   {
-    aimio_verbose_assert ((this->offset == Tuple<3,int>(0,0,0)),
+    aimio_verbose_assert ((this->offset == tuplet<3,int>(0,0,0)),
       "Non-zero offset incompatible with compression.");
   }
 

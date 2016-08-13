@@ -9,7 +9,7 @@
 
 using namespace boost::endian;
 
-using n88::Tuple;
+using n88::tuplet;
 
 
 namespace AimIO
@@ -28,15 +28,15 @@ void Decompress
   const void* void_in,
   size_t compressed_size,
   aim_storage_format_t type,
-  Tuple<3,int> dim,
-  Tuple<3,int> off,
+  tuplet<3,int> dim,
+  tuplet<3,int> off,
   bool encode_64bit
   )
 {
   if (type == AIMFILE_TYPE_D1TcharCmp ||
       type == AIMFILE_TYPE_D1TbinCmp)
   {
-    Tuple<3,int> dim_no_off = dim - off*2;
+    tuplet<3,int> dim_no_off = dim - off*2;
     std::vector<char> temp (long_product (dim_no_off));
     DecompressNoOffset (
       &(temp[0]),
@@ -70,7 +70,7 @@ void DecompressNoOffset
   const void* void_in,
   size_t compressed_size,
   aim_storage_format_t type,
-  Tuple<3,int> dim,
+  tuplet<3,int> dim,
   bool encode_64bit
   )
 {
@@ -81,7 +81,7 @@ void DecompressNoOffset
     const unsigned char* compressed_end = compressed + compressed_size;
     char* raw = reinterpret_cast<char*>(void_out);
 
-    Tuple<3,int> c_dim = (dim + 1)/2;
+    tuplet<3,int> c_dim = (dim + 1)/2;
     n88_assert (compressed_size == long_product(c_dim)+1);
 
     char value = compressed[long_product(c_dim)];
@@ -229,8 +229,8 @@ void RestoreOffset
   (
   char* out,
   const char* in,
-  Tuple<3,int> dim,
-  Tuple<3,int> off
+  tuplet<3,int> dim,
+  tuplet<3,int> off
   )
 {
   // Zero output
@@ -253,14 +253,14 @@ void Compress
   std::ostream& out,
   const void* void_in,
   aim_storage_format_t type,
-  Tuple<3,int> dim,
+  tuplet<3,int> dim,
   bool encode_64bit
   )
 {
 
   if (type == AIMFILE_TYPE_D3Tbit8)
   {
-    Tuple<3,int> c_dim = (dim + 1)/2;
+    tuplet<3,int> c_dim = (dim + 1)/2;
 
     const char* raw  = reinterpret_cast<const char*>(void_in);
     std::vector<unsigned char> buffer (long_product(c_dim)+1);

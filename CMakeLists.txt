@@ -25,7 +25,7 @@ endif (ENABLE_TESTING)
 
 # == Dependencies
 
-find_package (n88util REQUIRED)
+find_package (n88util 2.0 REQUIRED)
 include_directories (${N88UTIL_INCLUDE_DIRS})
 mark_as_advanced (n88util_DIR)
 

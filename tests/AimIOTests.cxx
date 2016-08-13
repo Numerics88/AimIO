@@ -7,7 +7,7 @@
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 
-using n88::Tuple;
+using n88::tuplet;
 
 char* test_dir = 0;
 
@@ -151,13 +151,13 @@ TEST_F (AimIOTests, ReadImage_V2_bincmp)
   ASSERT_EQ (AimIO::AIMFILE_VERSION_20, reader.version);
   ASSERT_EQ (AimIO::AIMFILE_TYPE_D1TbinCmp, reader.aim_type);
   ASSERT_EQ (AimIO::AimFile::AIMFILE_TYPE_CHAR, reader.buffer_type);
-  ASSERT_EQ ((Tuple<3,int>(195,212,50)), reader.position);
-  ASSERT_EQ ((Tuple<3,int>(25,25,25)), reader.dimensions);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.offset);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.supdim);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.suppos);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.subdim);
-  ASSERT_EQ ((Tuple<3,float>(0.034,0.034,0.034)), reader.element_size);
+  ASSERT_EQ ((tuplet<3,int>(195,212,50)), reader.position);
+  ASSERT_EQ ((tuplet<3,int>(25,25,25)), reader.dimensions);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.offset);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.supdim);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
+  ASSERT_EQ ((tuplet<3,float>(0.034,0.034,0.034)), reader.element_size);
   // Just check length and first and last few characters of processing log.
   ASSERT_EQ (1596, reader.processing_log.size());
   ASSERT_EQ (std::string("!\n! "), reader.processing_log.substr(0,4));
@@ -193,13 +193,13 @@ TEST_F (AimIOTests, ReadImage_V3_bincmp)
   ASSERT_EQ (AimIO::AIMFILE_VERSION_30, reader.version);
   ASSERT_EQ (AimIO::AIMFILE_TYPE_D1TbinCmp, reader.aim_type);
   ASSERT_EQ (AimIO::AimFile::AIMFILE_TYPE_CHAR, reader.buffer_type);
-  ASSERT_EQ ((Tuple<3,int>(195,212,50)), reader.position);
-  ASSERT_EQ ((Tuple<3,int>(25,25,25)), reader.dimensions);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.offset);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.supdim);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.suppos);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.subdim);
-  ASSERT_EQ ((Tuple<3,float>(0.034,0.034,0.034)), reader.element_size);
+  ASSERT_EQ ((tuplet<3,int>(195,212,50)), reader.position);
+  ASSERT_EQ ((tuplet<3,int>(25,25,25)), reader.dimensions);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.offset);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.supdim);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
+  ASSERT_EQ ((tuplet<3,float>(0.034,0.034,0.034)), reader.element_size);
   // Just check length and first and last few characters of processing log.
   ASSERT_EQ (1596, reader.processing_log.size());
   ASSERT_EQ (std::string("!\n! "), reader.processing_log.substr(0,4));
@@ -333,12 +333,12 @@ TEST_F (AimIOTests, ReadImage_V2_short)
   ASSERT_EQ (AimIO::AIMFILE_VERSION_20, reader.version);
   ASSERT_EQ (AimIO::AIMFILE_TYPE_D1Tshort, reader.aim_type);
   ASSERT_EQ (AimIO::AimFile::AIMFILE_TYPE_SHORT, reader.buffer_type);
-  ASSERT_EQ ((Tuple<3,int>(995,895,0)), reader.position);
-  ASSERT_EQ ((Tuple<3,int>(108,108,100)), reader.dimensions);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.offset);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.supdim);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.suppos);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.subdim);
+  ASSERT_EQ ((tuplet<3,int>(995,895,0)), reader.position);
+  ASSERT_EQ ((tuplet<3,int>(108,108,100)), reader.dimensions);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.offset);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.supdim);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
@@ -374,12 +374,12 @@ TEST_F (AimIOTests, ReadImage_V3_short)
   ASSERT_EQ (AimIO::AIMFILE_VERSION_30, reader.version);
   ASSERT_EQ (AimIO::AIMFILE_TYPE_D1Tshort, reader.aim_type);
   ASSERT_EQ (AimIO::AimFile::AIMFILE_TYPE_SHORT, reader.buffer_type);
-  ASSERT_EQ ((Tuple<3,int>(995,895,0)), reader.position);
-  ASSERT_EQ ((Tuple<3,int>(108,108,100)), reader.dimensions);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.offset);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.supdim);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.suppos);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.subdim);
+  ASSERT_EQ ((tuplet<3,int>(995,895,0)), reader.position);
+  ASSERT_EQ ((tuplet<3,int>(108,108,100)), reader.dimensions);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.offset);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.supdim);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
@@ -515,12 +515,12 @@ TEST_F (AimIOTests, ReadImage_V2_short_offset)
   ASSERT_EQ (AimIO::AIMFILE_VERSION_20, reader.version);
   ASSERT_EQ (AimIO::AIMFILE_TYPE_D1Tshort, reader.aim_type);
   ASSERT_EQ (AimIO::AimFile::AIMFILE_TYPE_SHORT, reader.buffer_type);
-  ASSERT_EQ ((Tuple<3,int>(995,895,0)), reader.position);
-  ASSERT_EQ ((Tuple<3,int>(108,108,100)), reader.dimensions);
-  ASSERT_EQ ((Tuple<3,int>(2,2,2)), reader.offset);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.supdim);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.suppos);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.subdim);
+  ASSERT_EQ ((tuplet<3,int>(995,895,0)), reader.position);
+  ASSERT_EQ ((tuplet<3,int>(108,108,100)), reader.dimensions);
+  ASSERT_EQ ((tuplet<3,int>(2,2,2)), reader.offset);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.supdim);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
@@ -552,12 +552,12 @@ TEST_F (AimIOTests, ReadImage_V3_short_offset)
   ASSERT_EQ (AimIO::AIMFILE_VERSION_30, reader.version);
   ASSERT_EQ (AimIO::AIMFILE_TYPE_D1Tshort, reader.aim_type);
   ASSERT_EQ (AimIO::AimFile::AIMFILE_TYPE_SHORT, reader.buffer_type);
-  ASSERT_EQ ((Tuple<3,int>(995,895,0)), reader.position);
-  ASSERT_EQ ((Tuple<3,int>(108,108,100)), reader.dimensions);
-  ASSERT_EQ ((Tuple<3,int>(2,2,2)), reader.offset);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.supdim);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.suppos);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.subdim);
+  ASSERT_EQ ((tuplet<3,int>(995,895,0)), reader.position);
+  ASSERT_EQ ((tuplet<3,int>(108,108,100)), reader.dimensions);
+  ASSERT_EQ ((tuplet<3,int>(2,2,2)), reader.offset);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.supdim);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
@@ -691,12 +691,12 @@ TEST_F (AimIOTests, ReadImage_V2_charcmp)
   ASSERT_EQ (AimIO::AIMFILE_VERSION_20, reader.version);
   ASSERT_EQ (AimIO::AIMFILE_TYPE_D1TcharCmp, reader.aim_type);
   ASSERT_EQ (AimIO::AimFile::AIMFILE_TYPE_CHAR, reader.buffer_type);
-  ASSERT_EQ ((Tuple<3,int>(998,898,3)), reader.position);
-  ASSERT_EQ ((Tuple<3,int>(102,102,94)), reader.dimensions);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.offset);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.supdim);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.suppos);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.subdim);
+  ASSERT_EQ ((tuplet<3,int>(998,898,3)), reader.position);
+  ASSERT_EQ ((tuplet<3,int>(102,102,94)), reader.dimensions);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.offset);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.supdim);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
@@ -732,12 +732,12 @@ TEST_F (AimIOTests, ReadImage_V3_charcmp)
   ASSERT_EQ (AimIO::AIMFILE_VERSION_30, reader.version);
   ASSERT_EQ (AimIO::AIMFILE_TYPE_D1TcharCmp, reader.aim_type);
   ASSERT_EQ (AimIO::AimFile::AIMFILE_TYPE_CHAR, reader.buffer_type);
-  ASSERT_EQ ((Tuple<3,int>(998,898,3)), reader.position);
-  ASSERT_EQ ((Tuple<3,int>(102,102,94)), reader.dimensions);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.offset);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.supdim);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.suppos);
-  ASSERT_EQ ((Tuple<3,int>(0,0,0)), reader.subdim);
+  ASSERT_EQ ((tuplet<3,int>(998,898,3)), reader.position);
+  ASSERT_EQ ((tuplet<3,int>(102,102,94)), reader.dimensions);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.offset);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.supdim);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
+  ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);

@@ -6,7 +6,7 @@
 
 #include "AimIO/Definitions.h"
 #include "AimIO/Exception.h"
-#include <n88util/Tuple.hpp>
+#include <n88util/tuplet.hpp>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -142,14 +142,14 @@ class AIMIO_EXPORT AimFile
     /// Position.
     ///
     /// This is the coordinates, in pixels, of the center of the voxel (0,0,0).
-    n88::Tuple<3,int>         position;
+    n88::tuplet<3,int>         position;
 
     /// Dimensions of the image  as (x,y,z).
     ///
     /// x is the fastest-varying coordinate and z the slowest.
     ///
     /// This must be set before a call to WriteImageData.
-    n88::Tuple<3,int>         dimensions;
+    n88::tuplet<3,int>         dimensions;
 
     /// Offset
     ///
@@ -160,13 +160,13 @@ class AIMIO_EXPORT AimFile
     /// Because of some historically inconsistent behaviour, AimIO will
     /// refuse to write a file with non-zero offset using a compressed
     /// format.
-    n88::Tuple<3,int>         offset;
+    n88::tuplet<3,int>         offset;
 
     // Obscure meta-data that is not often used:
-    n88::Tuple<3,int>         supdim;
-    n88::Tuple<3,int>         suppos;
-    n88::Tuple<3,int>         subdim;
-    n88::Tuple<3,int>         testoff;
+    n88::tuplet<3,int>         supdim;
+    n88::tuplet<3,int>         suppos;
+    n88::tuplet<3,int>         subdim;
+    n88::tuplet<3,int>         testoff;
 
     /// The element size in mm.
     ///
@@ -177,7 +177,7 @@ class AIMIO_EXPORT AimFile
     /// and earlier versions of the AIM file format store this parameter as
     /// floating point values, which can be incorrectly read on different
     /// hardware.
-    n88::Tuple<3,float>       element_size;
+    n88::tuplet<3,float>       element_size;
 
     /// Associated data is not currently handled by this class, because I haven't
     /// needed it. Support could of course be added to a future version, if needed.

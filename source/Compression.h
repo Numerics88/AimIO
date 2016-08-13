@@ -4,7 +4,7 @@
 #ifndef __AimCompression_h
 #define __AimCompression_h
 
-#include "n88util/Tuple.hpp"
+#include "n88util/tuplet.hpp"
 #include "AimIO/Definitions.h"
 #include "AimIO/Exception.h"
 #include <ostream>
@@ -19,8 +19,8 @@ void Decompress (
     const void* in,
     size_t mem_size,
     aim_storage_format_t type,
-    n88::Tuple<3,int> dim,
-    n88::Tuple<3,int> off,
+    n88::tuplet<3,int> dim,
+    n88::tuplet<3,int> off,
     bool encode_64bit);
 
 /// As well as compressing, handles endianness of data if required.
@@ -28,7 +28,7 @@ void Compress (
     std::ostream& out,
     const void* in,
     aim_storage_format_t type,
-    n88::Tuple<3,int> dim,
+    n88::tuplet<3,int> dim,
     bool encode_64bit);
 
 /// Decompresses without taking offset into account.
@@ -40,7 +40,7 @@ void DecompressNoOffset (
     const void* in,
     size_t mem_size,
     aim_storage_format_t type,
-    n88::Tuple<3,int> dim,
+    n88::tuplet<3,int> dim,
     bool encode_64bit);
 
 /// Takes input data of dimensions dim-2*off, and expands it to dimensions
@@ -48,8 +48,8 @@ void DecompressNoOffset (
 void RestoreOffset (
     char* out,
     const char* in,
-    n88::Tuple<3,int> dim,
-    n88::Tuple<3,int> off);
+    n88::tuplet<3,int> dim,
+    n88::tuplet<3,int> off);
 
 }  // namespace
 
