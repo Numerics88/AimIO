@@ -7,10 +7,10 @@ AimIO is a simple C++ class for reading and writing Scanco AIM image files.
 
 AimIO requires the following:
 
+  * CMake: www.cmake.org
   * Boost: www.boost.org
-  * n88util: usually included with the source code for AimIO.
-  * Google test: If you want to build the tests.
-  * CMake: Required only for building the tests.
+  * n88util
+  * Google test: https://github.com/google/googletest
 
 To use AimIO, it is sufficient to just include the files AimIO.cxx
 and Compression.cxx in your project. Compiling it as a library is possible too.
@@ -23,7 +23,7 @@ mkdir build
 cd build
 ccmake ..
 make
-make test
+ctest -V
 ```
 
 On Windows the procedure is a rather different: refer to CMake documentation.
@@ -114,7 +114,7 @@ For more details, refer to the header file AimIO.h .
   files do not use floating point values in the header at all, and previous
   versions use floating point values in the header only for the element size.
   And although it is possible for the image data itself to be floating point,
-  this is rare, possibly even exceedingly rare. Note that it principle it would be
+  this is rare, possibly even exceedingly rare. In principle it would be
   possible to handle floats on different hardware simply by adding a bunch of
   conditional compiler defines in the file PlatformFloat.h . No other changes to
   the code would be necessary.

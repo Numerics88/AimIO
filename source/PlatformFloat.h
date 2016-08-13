@@ -1,3 +1,6 @@
+// Copyright (c) Eric Nodwell
+// See LICENSE for details.
+
 #ifndef __AimIO_PlatformFloat_h
 #define __AimIO_PlatformFloat_h
 

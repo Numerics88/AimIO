@@ -1,3 +1,6 @@
+// Copyright (c) Eric Nodwell
+// See LICENSE for details.
+
 #include "Compression.h"
 #include "PlatformFloat.h"
 #include <boost/cstdint.hpp>

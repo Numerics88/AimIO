@@ -1,3 +1,6 @@
+// Copyright (c) Eric Nodwell
+// See LICENSE for details.
+
 #ifndef __AimCompression_h
 #define __AimCompression_h
 

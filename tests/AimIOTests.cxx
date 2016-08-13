@@ -1,3 +1,6 @@
+// Copyright (c) Eric Nodwell
+// See LICENSE for details.
+
 #include "AimIO/AimIO.h"
 
 #include <gtest/gtest.h>
