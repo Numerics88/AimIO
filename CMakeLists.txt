@@ -34,7 +34,7 @@ find_package (n88util 2.0 REQUIRED)
 include_directories (${N88UTIL_INCLUDE_DIRS})
 mark_as_advanced (n88util_DIR)
 
-find_package (Boost 1.56.0 COMPONENTS filesystem system REQUIRED)
+find_package (Boost 1.57.0 COMPONENTS filesystem system REQUIRED)
 if (MSVC)
   add_definitions (-D_CRT_SECURE_NO_WARNINGS)
 endif (MSVC)
