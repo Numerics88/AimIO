@@ -1,0 +1,30 @@
+package:
+  name: aimio
+  version: {{ GIT_DESCRIBE_TAG | lower | replace("v","") }}
+
+source:
+  path: ./../../
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake >=3.2
+    - boost >=1.57
+    - ninja
+    - gtest
+    - n88util >=2.0
+  run:
+    - boost >=1.57
+    - n88util >=2.0
+
+about:
+  home: https://github.com/Numerics88/AimIO
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: 'SCANCO AIM input/output library'
+  description: |
+    AimIO is a simple C++ class for reading and writing Scanco AIM image files.
+  dev_url: https://github.com/Numerics88/AimIO
