@@ -8,10 +8,11 @@ source:
 build:
   number: 0
 
+# Note, boost has an upperbound right now to hanlde cmake correctly
 requirements:
   build:
     - cmake >=3.2
-    - boost >=1.57
+    - boost >=1.57,<=1.67
     - ninja
     - gtest
     - n88util >=2.0
