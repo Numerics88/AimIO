@@ -25,11 +25,10 @@ include_directories ("${GTEST_INCLUDE_DIR}")
 include_directories (${Boost_INCLUDE_DIR})
 
 add_executable (AimIOTests
-  AimIOTests.cxx
-  ../source/AimIO.cxx
-  ../source/Compression.cxx)
+  AimIOTests.cxx)
 
 target_link_libraries (AimIOTests
+	AimIO
   ${GTEST_LIBRARIES}
   ${Boost_FILESYSTEM_LIBRARY}
   ${Boost_SYSTEM_LIBRARY})

@@ -13,6 +13,9 @@ case $(uname | tr '[:upper:]' '[:lower:]') in
   darwin*)
 		# Get the SDK
 		CMAKE_PLATFORM_FLAGS+=(-DCMAKE_OSX_SYSROOT="${CONDA_BUILD_SYSROOT}")
+
+		# Need to export DYLD_FALLBACK_LIBRARY_PATH for ctest to find boost
+		export DYLD_FALLBACK_LIBRARY_PATH="${BUILD_PREFIX}/lib/:${DYLD_LIBRARY_PATH}"
     ;;
   *)
 esac
@@ -25,7 +28,7 @@ cmake .. \
 	-DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
 	-DCMAKE_INSTALL_RPATH:PATH="${PREFIX}/lib" \
 	-DBOOST_ROOT:PATH="${PREFIX}" \
-	-DBUILD_SHARED_LIBS:BOOL=OFF \
+	-DBUILD_SHARED_LIBS:BOOL=ON \
 	-DENABLE_TESTING:BOOL=ON \
 	"${CMAKE_PLATFORM_FLAGS[@]}"
 
