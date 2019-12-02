@@ -60,8 +60,9 @@ set_target_properties(AimIO
 generate_export_header (AimIO)
 
 target_link_libraries (AimIO
-	n88util::n88util
-	Boost::filesystem Boost::system
+	PRIVATE
+		n88util::n88util
+		Boost::filesystem Boost::system
 )
 
 # === Install
