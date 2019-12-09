@@ -2,9 +2,8 @@
 
 AimIO is a simple C++ class for reading and writing Scanco AIM image files.
 
-![Build Status][build-status]
-
-[build-status]: https://dev.azure.com/babesler/n88/_apis/build/status/Numerics88.AimIO?branchName=master
+[![Build Status](https://dev.azure.com/babesler/n88/_apis/build/status/Numerics88.AimIO?branchName=master)](https://dev.azure.com/babesler/n88/_build/latest?definitionId=8&branchName=master)
+[![Anaconda-Server Badge](https://anaconda.org/numerics88/aimio/badges/installer/conda.svg)](https://anaconda.org/Numerics88/aimio)
 
 ## Compiling and linking
 

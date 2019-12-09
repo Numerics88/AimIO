@@ -1,3 +1,4 @@
+@echo on
 
 :: Create build directory
 mkdir build
@@ -11,7 +12,7 @@ cmake .. ^
 	-DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^
 	-DBOOST_ROOT:PATH="%PREFIX%" ^
 	-DENABLE_TESTING:BOOL=ON ^
-	-DBUILD_SHARED_LIBS:BOOL=OFF ^
+	-DBUILD_SHARED_LIBS:BOOL=ON ^
 	-DCMAKE_C_COMPILER="cl.exe" ^
 	-DCMAKE_CXX_COMPILER="cl.exe"
 if errorlevel 1 exit 1

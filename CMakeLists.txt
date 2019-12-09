@@ -60,8 +60,10 @@ set_target_properties(AimIO
 generate_export_header (AimIO)
 
 target_link_libraries (AimIO
-  ${Boost_FILESYSTEM_LIBRARY}
-  ${Boost_SYSTEM_LIBRARY})
+	PRIVATE
+		n88util::n88util
+		Boost::filesystem Boost::system
+)
 
 # === Install
 
@@ -130,7 +132,11 @@ install(FILES
     "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/AimIOConfig.cmake"
     "${PROJECT_BINARY_DIR}/AimIOConfigVersion.cmake"
     DESTINATION "${INSTALL_CMAKE_DIR}")
- 
+
 # Install the export set for use with the install-tree
-install(EXPORT AimIOTargets DESTINATION
-  "${INSTALL_CMAKE_DIR}")
+install(EXPORT AimIOTargets
+	NAMESPACE
+		AimIO::
+	DESTINATION
+ 		"${INSTALL_CMAKE_DIR}"
+)
