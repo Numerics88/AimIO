@@ -65,10 +65,6 @@ target_link_libraries (AimIO
 		Boost::filesystem Boost::system
 )
 
-if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    target_link_libraries (aimio dl pthread)
-endif()
-
 # === Install
 
 install (TARGETS AimIO
