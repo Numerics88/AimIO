@@ -34,7 +34,7 @@ find_package (n88util 2.0 REQUIRED)
 include_directories (${N88UTIL_INCLUDE_DIRS})
 mark_as_advanced (n88util_DIR)
 
-find_package (Boost 1.57.0 COMPONENTS filesystem system REQUIRED)
+find_package (Boost 1.61.0 COMPONENTS filesystem system thread REQUIRED)
 if (MSVC)
   add_definitions (-D_CRT_SECURE_NO_WARNINGS)
 endif (MSVC)
@@ -64,6 +64,10 @@ target_link_libraries (AimIO
 		n88util::n88util
 		Boost::filesystem Boost::system
 )
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_link_libraries (aimio dl pthread)
+endif()
 
 # === Install
 
