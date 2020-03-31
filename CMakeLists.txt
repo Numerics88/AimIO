@@ -17,6 +17,7 @@ set (CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY ON)
 # === Source code files
 
 set (SRC
+  source/aix.cxx
   source/AimIO.cxx
   source/Compression.cxx)
 
@@ -65,6 +66,15 @@ target_link_libraries (AimIO
 		Boost::filesystem Boost::system
 )
 
+option (N88_BUILD_AIX "Build aix tool." ON)
+if (N88_BUILD_AIX)
+		add_executable (aix source/aix.cxx)
+		target_link_libraries (aix AimIO)
+		if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+		    target_link_libraries (AimIO dl pthread)
+		endif()
+endif()
+
 # === Install
 
 install (TARGETS AimIO
@@ -72,6 +82,11 @@ install (TARGETS AimIO
          RUNTIME DESTINATION bin
          LIBRARY DESTINATION lib
          ARCHIVE DESTINATION lib)
+
+if (N88_BUILD_AIX)
+    install (TARGETS aix DESTINATION bin)
+endif ()
+
 
 install (DIRECTORY "${CMAKE_SOURCE_DIR}/include/AimIO" DESTINATION include)
 install(FILES ${PROJECT_BINARY_DIR}/aimio_export.h DESTINATION include/AimIO)
