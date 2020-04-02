@@ -68,7 +68,10 @@ target_link_libraries (AimIO
 option (N88_BUILD_AIX "Build aix tool." ON)
 if (N88_BUILD_AIX)
 		add_executable (aix source/aix.cxx)
-		target_link_libraries (aix AimIO)
+		target_link_libraries (aix
+			AimIO
+			Boost::filesystem Boost::system
+		)
 		if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
 		    target_link_libraries (aix dl pthread)
 		endif()
