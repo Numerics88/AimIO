@@ -17,7 +17,6 @@ set (CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY ON)
 # === Source code files
 
 set (SRC
-  source/aix.cxx
   source/AimIO.cxx
   source/Compression.cxx)
 
@@ -71,7 +70,7 @@ if (N88_BUILD_AIX)
 		add_executable (aix source/aix.cxx)
 		target_link_libraries (aix AimIO)
 		if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-		    target_link_libraries (AimIO dl pthread)
+		    target_link_libraries (aix dl pthread)
 		endif()
 endif()
 
