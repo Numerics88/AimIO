@@ -186,6 +186,10 @@ class AIMIO_EXPORT AimFile
     boost::int32_t            assoc_size;
     boost::int32_t            assoc_type;
 
+    /// The byte offset for the start of image data, used for debugging with hexdump
+    /// and for AIX compatibility
+    int                       byte_offset;
+
   protected:
 
     void ReadBlockList (std::ifstream& f);

@@ -130,9 +130,7 @@ int main(int argc, char **argv)
   }
   
   // Print standard examine information
-  //
-  // Would add if I knew how to grab this->block_list[2].offset
-  //std::cout << "!%  Image Data starts at byte offset " << this->block_list[2].offset << std::endl;
+  std::cout << "!%  Image Data starts at byte offset " << reader.byte_offset << std::endl;
   switch( reader.version ) {
     case AimIO::AIMFILE_VERSION_10:
       std::cout << "!> Reading AimVersion010" << std::endl;
