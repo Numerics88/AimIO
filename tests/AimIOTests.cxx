@@ -158,6 +158,7 @@ TEST_F (AimIOTests, ReadImage_V2_bincmp)
   ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
   ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
   ASSERT_EQ ((tuplet<3,float>(0.034,0.034,0.034)), reader.element_size);
+  ASSERT_EQ (1757, reader.byte_offset);
   // Just check length and first and last few characters of processing log.
   ASSERT_EQ (1596, reader.processing_log.size());
   ASSERT_EQ (std::string("!\n! "), reader.processing_log.substr(0,4));
@@ -200,6 +201,7 @@ TEST_F (AimIOTests, ReadImage_V3_bincmp)
   ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.suppos);
   ASSERT_EQ ((tuplet<3,int>(0,0,0)), reader.subdim);
   ASSERT_EQ ((tuplet<3,float>(0.034,0.034,0.034)), reader.element_size);
+  ASSERT_EQ (1877, reader.byte_offset);
   // Just check length and first and last few characters of processing log.
   ASSERT_EQ (1596, reader.processing_log.size());
   ASSERT_EQ (std::string("!\n! "), reader.processing_log.substr(0,4));
@@ -263,6 +265,7 @@ TEST_F (AimIOTests, CopyImage_V2_bincmp)
   ASSERT_EQ (reader.element_size, reader2.element_size);
   ASSERT_EQ (reader.processing_log.size(), reader2.processing_log.size());
   ASSERT_EQ (reader.processing_log, reader2.processing_log);
+  ASSERT_EQ (reader.byte_offset, reader2.byte_offset);
 
   std::vector<char> data2 (N);
   reader2.ReadImageData (data2.data(), N);
@@ -312,6 +315,7 @@ TEST_F (AimIOTests, CopyImage_V3_bincmp)
   ASSERT_EQ (reader.element_size, reader2.element_size);
   ASSERT_EQ (reader.processing_log.size(), reader2.processing_log.size());
   ASSERT_EQ (reader.processing_log, reader2.processing_log);
+  ASSERT_EQ (reader.byte_offset, reader2.byte_offset);
 
   std::vector<char> data2 (N);
   reader2.ReadImageData (data2.data(), N);
@@ -342,6 +346,7 @@ TEST_F (AimIOTests, ReadImage_V2_short)
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
+  ASSERT_EQ (3197, reader.byte_offset);
   ASSERT_EQ (std::string(TEST_AIM_LOG), reader.processing_log);
 
   size_t N = long_product(reader.dimensions);
@@ -383,6 +388,7 @@ TEST_F (AimIOTests, ReadImage_V3_short)
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
+  ASSERT_EQ (3317, reader.byte_offset);
   ASSERT_EQ (std::string(TEST_AIM_LOG), reader.processing_log);
 
   size_t N = long_product(reader.dimensions);
@@ -443,6 +449,7 @@ TEST_F (AimIOTests, CopyImage_V2_short)
   ASSERT_EQ (reader.subdim, reader2.subdim);
   ASSERT_EQ (reader.element_size, reader2.element_size);
   ASSERT_EQ (reader.processing_log, reader2.processing_log);
+  ASSERT_EQ (reader.byte_offset, reader2.byte_offset);
 
   std::vector<short> data2 (N);
   reader.ReadImageData (data2.data(), N);
@@ -493,6 +500,7 @@ TEST_F (AimIOTests, CopyImage_V3_short)
   ASSERT_EQ (reader.subdim, reader2.subdim);
   ASSERT_EQ (reader.element_size, reader2.element_size);
   ASSERT_EQ (reader.processing_log, reader2.processing_log);
+  ASSERT_EQ (reader.byte_offset, reader2.byte_offset);
 
   std::vector<short> data2 (N);
   reader.ReadImageData (data2.data(), N);
@@ -524,6 +532,7 @@ TEST_F (AimIOTests, ReadImage_V2_short_offset)
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
+  ASSERT_EQ (4121, reader.byte_offset);
   ASSERT_EQ (std::string(TEST_GAUSS_LOG), reader.processing_log);
 
   size_t N = long_product(reader.dimensions);
@@ -561,6 +570,7 @@ TEST_F (AimIOTests, ReadImage_V3_short_offset)
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
+  ASSERT_EQ (4241, reader.byte_offset);
   ASSERT_EQ (std::string(TEST_GAUSS_LOG), reader.processing_log);
 
   size_t N = long_product(reader.dimensions);
@@ -618,6 +628,7 @@ TEST_F (AimIOTests, CopyImage_V2_short_offset)
   ASSERT_EQ (reader.subdim, reader2.subdim);
   ASSERT_EQ (reader.element_size, reader2.element_size);
   ASSERT_EQ (reader.processing_log, reader2.processing_log);
+  ASSERT_EQ (reader.byte_offset, reader2.byte_offset);
 
   std::vector<short> data2 (N);
   reader.ReadImageData (data2.data(), N);
@@ -669,6 +680,7 @@ TEST_F (AimIOTests, CopyImage_V3_short_offset)
   ASSERT_EQ (reader.subdim, reader2.subdim);
   ASSERT_EQ (reader.element_size, reader2.element_size);
   ASSERT_EQ (reader.processing_log, reader2.processing_log);
+  ASSERT_EQ (reader.byte_offset, reader2.byte_offset);
 
   std::vector<short> data2 (N);
   reader.ReadImageData (data2.data(), N);
@@ -700,6 +712,7 @@ TEST_F (AimIOTests, ReadImage_V2_charcmp)
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
+  ASSERT_EQ (7315, reader.byte_offset);
   // Skip checking processing log
 
   size_t N = long_product(reader.dimensions);
@@ -741,6 +754,7 @@ TEST_F (AimIOTests, ReadImage_V3_charcmp)
   ASSERT_NEAR (0.0607, reader.element_size[0], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[1], 1E-5);
   ASSERT_NEAR (0.0607, reader.element_size[2], 1E-5);
+  ASSERT_EQ (7435, reader.byte_offset);
   // Skip checking processing log
 
   size_t N = long_product(reader.dimensions);
@@ -801,6 +815,7 @@ TEST_F (AimIOTests, CopyImage_V2_charcmp)
   ASSERT_EQ (reader.element_size, reader2.element_size);
   ASSERT_EQ (reader.processing_log.size(), reader2.processing_log.size());
   ASSERT_EQ (reader.processing_log, reader2.processing_log);
+  ASSERT_EQ (reader.byte_offset, reader2.byte_offset);
 
   std::vector<char> data2 (N);
   reader2.ReadImageData (data2.data(), N);
@@ -849,6 +864,7 @@ TEST_F (AimIOTests, CopyImage_V3_charcmp)
   ASSERT_EQ (reader.element_size, reader2.element_size);
   ASSERT_EQ (reader.processing_log.size(), reader2.processing_log.size());
   ASSERT_EQ (reader.processing_log, reader2.processing_log);
+  ASSERT_EQ (reader.byte_offset, reader2.byte_offset);
 
   std::vector<char> data2 (N);
   reader2.ReadImageData (data2.data(), N);
