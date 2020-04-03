@@ -20,14 +20,6 @@ set (SRC
   source/AimIO.cxx
   source/Compression.cxx)
 
-# === Testing
-
-option (ENABLE_TESTING "Build unit and other tests" OFF)
-if (ENABLE_TESTING)
-    enable_testing()
-    find_package (GTest REQUIRED)
-endif (ENABLE_TESTING)
-
 # == Dependencies
 
 find_package (n88util 2.0 REQUIRED)
@@ -93,12 +85,6 @@ endif ()
 install (DIRECTORY "${CMAKE_SOURCE_DIR}/include/AimIO" DESTINATION include)
 install(FILES ${PROJECT_BINARY_DIR}/aimio_export.h DESTINATION include/AimIO)
 
-# === Testing
-
-if (ENABLE_TESTING)
-  add_subdirectory (tests)
-endif (ENABLE_TESTING)
-
 # === CMake config files for importing this project
 
 # Set some locations for the install
@@ -157,3 +143,10 @@ install(EXPORT AimIOTargets
 	DESTINATION
  		"${INSTALL_CMAKE_DIR}"
 )
+
+# === Testing
+
+option (ENABLE_TESTING "Build unit and other tests" OFF)
+if (ENABLE_TESTING)
+  add_subdirectory (tests)
+endif (ENABLE_TESTING)
