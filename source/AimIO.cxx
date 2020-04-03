@@ -133,7 +133,8 @@ AimFile::AimFile ()
   assoc_id (0),
   assoc_nr (0),
   assoc_size (0),
-  assoc_type (1)
+  assoc_type (1),
+  byte_offset (0)
   {}
 
 
@@ -157,7 +158,8 @@ AimFile::AimFile (const char* fn)
   assoc_id (0),
   assoc_nr (0),
   assoc_size (0),
-  assoc_type (1)
+  assoc_type (1),
+  byte_offset (0)
   {}
 
 
@@ -268,6 +270,7 @@ void AimFile::ReadHeader (std::ifstream& f)
     this->assoc_nr     = fd.assoc.nr;
     this->assoc_size   = fd.assoc.size;
     this->assoc_type   = fd.assoc.type;
+    this->byte_offset  = this->block_list[2].offset;
   }
 
   else if (this->block_list[0].size == sizeof(D3FileImage020) )
@@ -295,6 +298,7 @@ void AimFile::ReadHeader (std::ifstream& f)
     this->assoc_nr     = fd.assoc.nr;
     this->assoc_size   = fd.assoc.size;
     this->assoc_type   = fd.assoc.type;
+    this->byte_offset  = this->block_list[2].offset;
   }
 
   else if (this->block_list[0].size == sizeof(D3FileImage011) )
@@ -316,6 +320,7 @@ void AimFile::ReadHeader (std::ifstream& f)
     this->assoc_nr     = fd.assoc.nr;
     this->assoc_size   = fd.assoc.size;
     this->assoc_type   = fd.assoc.type;
+    this->byte_offset  = this->block_list[2].offset;
   }
 
   else if (this->block_list[0].size == sizeof(D3FileImage010) )
@@ -337,6 +342,7 @@ void AimFile::ReadHeader (std::ifstream& f)
     this->assoc_nr     = fd.assoc.nr;
     this->assoc_size   = fd.assoc.size;
     this->assoc_type   = fd.assoc.type;
+    this->byte_offset  = this->block_list[2].offset;
     }
 
   else {

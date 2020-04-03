@@ -1,3 +1,8 @@
+
+enable_testing()
+find_package (GTest REQUIRED)
+find_package (Boost 1.61.0 COMPONENTS filesystem system REQUIRED)
+
 # === Fetch the external test data ===
 
 include (ExternalData)
@@ -20,7 +25,6 @@ add_custom_target (test_data
 
 
 # === Actual tests (single google test binary) ===
-
 include_directories ("${GTEST_INCLUDE_DIR}")
 include_directories (${Boost_INCLUDE_DIR})
 
@@ -28,10 +32,9 @@ add_executable (AimIOTests
   AimIOTests.cxx)
 
 target_link_libraries (AimIOTests
-	AimIO
+  AimIO
   ${GTEST_LIBRARIES}
-  ${Boost_FILESYSTEM_LIBRARY}
-  ${Boost_SYSTEM_LIBRARY})
+  Boost::filesystem Boost::system)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   target_link_libraries (AimIOTests pthread)

@@ -17,17 +17,8 @@ set (CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY ON)
 # === Source code files
 
 set (SRC
-  source/aix.cxx
   source/AimIO.cxx
   source/Compression.cxx)
-
-# === Testing
-
-option (ENABLE_TESTING "Build unit and other tests" OFF)
-if (ENABLE_TESTING)
-    enable_testing()
-    find_package (GTest REQUIRED)
-endif (ENABLE_TESTING)
 
 # == Dependencies
 
@@ -69,9 +60,12 @@ target_link_libraries (AimIO
 option (N88_BUILD_AIX "Build aix tool." ON)
 if (N88_BUILD_AIX)
 		add_executable (aix source/aix.cxx)
-		target_link_libraries (aix AimIO)
+		target_link_libraries (aix
+			AimIO
+			Boost::filesystem Boost::system
+		)
 		if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-		    target_link_libraries (AimIO dl pthread)
+		    target_link_libraries (aix dl pthread)
 		endif()
 endif()
 
@@ -90,12 +84,6 @@ endif ()
 
 install (DIRECTORY "${CMAKE_SOURCE_DIR}/include/AimIO" DESTINATION include)
 install(FILES ${PROJECT_BINARY_DIR}/aimio_export.h DESTINATION include/AimIO)
-
-# === Testing
-
-if (ENABLE_TESTING)
-  add_subdirectory (tests)
-endif (ENABLE_TESTING)
 
 # === CMake config files for importing this project
 
@@ -155,3 +143,10 @@ install(EXPORT AimIOTargets
 	DESTINATION
  		"${INSTALL_CMAKE_DIR}"
 )
+
+# === Testing
+
+option (ENABLE_TESTING "Build unit and other tests" OFF)
+if (ENABLE_TESTING)
+  add_subdirectory (tests)
+endif (ENABLE_TESTING)
