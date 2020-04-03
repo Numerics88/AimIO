@@ -180,38 +180,62 @@ int main(int argc, char **argv)
             << std::setw(7) << std::right << std::fixed << std::setprecision(4) << reader.element_size[2]*reader.dimensions[2] 
             << std::endl;
   std::cout << "!>" << std::endl;
-    
+  
+  int nbytes = 1;
   switch( reader.aim_type ) {
     case AimIO::AIMFILE_TYPE_D1Tchar:
       std::cout << "!> " << std::left << std::setw(30) << "Type of data" 
                 << std::setw(20) << "D1Tchar" << std::endl;
+      nbytes = 1;
       break;
     case AimIO::AIMFILE_TYPE_D1TbinCmp:
       std::cout << "!> " << std::left << std::setw(30) << "Type of data" 
                 << std::setw(20) << "BinCmp     1 byte/voxel" << std::endl; // D1TbinCmp
+      nbytes = 1;
       break;
     case AimIO::AIMFILE_TYPE_D3Tbit8:
       std::cout << "!> " << std::left << std::setw(30) << "Type of data" 
                 << std::setw(20) << "D3Tbit8" << std::endl;
+      nbytes = 1;
       break;
     case AimIO::AIMFILE_TYPE_D1TcharCmp:
       std::cout << "!> " << std::left << std::setw(30) << "Type of data" 
                 << std::setw(20) << "D1TcharCmp" << std::endl;
+      nbytes = 1;
       break;
     case AimIO::AIMFILE_TYPE_D1Tshort:
       std::cout << "!> " << std::left << std::setw(30) << "Type of data" 
                 << std::setw(20) << "Short      2 byte/voxel" << std::endl; // D1Tshort
-    break;
+      nbytes = 2;
+      break;
     case AimIO::AIMFILE_TYPE_D1Tfloat:
       std::cout << "!> " << std::left << std::setw(30) << "Type of data" 
                 << std::setw(20) << "D1Tfloat" << std::endl;
-      break;
+      nbytes = 4;
+			break;
     default:
       std::cout << "!> " << std::left << std::setw(30) << "Type of data" 
                 << std::setw(20) << "unknown" << std::endl;
   }
-  std::cout << "!-------------------------------------------------------------------------------" << std::endl;
   
+	// Note that memory size result is about 5% higher than Scanco AIX output. 
+	// Actual Scanco implementation is shown at bottom, but hasn't been implemented.
+  float memory_size = nbytes * reader.dimensions[0]*reader.dimensions[1]*reader.dimensions[2];
+  if (memory_size > 1e6) {
+    std::cout << "!> " << std::left << std::setw(30) << "Total memory size" 
+              << std::left << std::setw(10) << std::fixed << std::setprecision(1) << (memory_size/1.0e6) 
+              << " Mbyte" << std::endl;
+  } else if (memory_size > 1e3) {
+    std::cout << "!> " << std::left << std::setw(30) << "Total memory size" 
+              << std::left << std::setw(10) << std::fixed << std::setprecision(1) << (memory_size/1.0e3) 
+              << " Kbyte" << std::endl;
+  } else {
+    std::cout << "!> " << std::left << std::setw(30) << "Total memory size" 
+              << std::left << std::setw(10) << std::fixed << std::setprecision(1) << (memory_size) 
+              << " byte" << std::endl;
+  }
+  std::cout << "!-------------------------------------------------------------------------------" << std::endl;
+
   // Print the processing log
   if (show_log) {
     std::cout << reader.processing_log << "\n";
@@ -219,3 +243,17 @@ int main(int argc, char **argv)
   
   return 0;
 }
+
+// Scanco AIX implementation of memory size estimate
+//
+//#define D3MemorySize(im) (\
+//  (im).type == D3Tbit8 ?\
+//    ((((im).dim.x+1)>>1)*(((im).dim.y+1)>>1)*(((im).dim.z+1)>>1)* \
+//    D3ElementSize(im) + 1) :\
+//  (im).version == 020 && ((im).type == D1TcharCmp || (im).type == D1TbinCmp || (im).type == D1TcharCmp2 ) ?\
+//    ((int64) (* ((int32 *) (im).dat))) :\
+//  (im).type == D1TcharCmp || (im).type == D1TbinCmp || (im).type == D1TcharCmp2 ?\
+//    ((int64) (* ((int64 *) (im).dat))) :\
+//  (im).type == D1TZBencoded ?\
+//  		((int64) (* ((int64 *) (im).dat))) :\
+//  (D3Volume(im)*D3ElementSize(im)) )
