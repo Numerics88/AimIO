@@ -15,7 +15,6 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
-#include <regex>
 #include <iomanip>
 
 static void show_usage()
