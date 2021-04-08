@@ -18,7 +18,7 @@ requirements:
     - gtest
     - n88util >=2.0
   run:
-    - boost >=1.57
+    - boost >=1.57,<=1.67
     - n88util >=2.0
 
 about:
