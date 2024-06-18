@@ -107,6 +107,7 @@ endforeach()
 
 # Add all targets to the build-tree export set
 export (TARGETS AimIO
+    NAMESPACE AimIO::
     FILE "${PROJECT_BINARY_DIR}/AimIOTargets.cmake")
 
 # Export the package for use from the build-tree
