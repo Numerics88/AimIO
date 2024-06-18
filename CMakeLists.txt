@@ -35,7 +35,7 @@ if (WIN32)
   add_definitions (-DBOOST_ALL_NO_LIB)
 endif()
 
-include_directories (${Boost_INCLUDE_DIR})
+include_directories (${Boost_INCLUDE_DIRS})
 
 # == Create library
 

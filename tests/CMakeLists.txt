@@ -26,7 +26,7 @@ add_custom_target (test_data
 
 # === Actual tests (single google test binary) ===
 include_directories ("${GTEST_INCLUDE_DIR}")
-include_directories (${Boost_INCLUDE_DIR})
+include_directories (${Boost_INCLUDE_DIRS})
 
 add_executable (AimIOTests
   AimIOTests.cxx)
