@@ -9,6 +9,10 @@ set(AIMIO_PATCH_VERSION 0)
 set(AIMIO_VERSION
   ${AIMIO_MAJOR_VERSION}.${AIMIO_MINOR_VERSION}.${AIMIO_PATCH_VERSION})
 
+# === Standard CMake options
+
+option (BUILD_SHARED_LIBS "Build shared libraries" OFF)
+
 # Ensure that CMake behaves predictably
 set (CMAKE_EXPORT_NO_PACKAGE_REGISTRY ON)
 set (CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY ON)
