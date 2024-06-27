@@ -1,5 +1,3 @@
-
-enable_testing()
 find_package (GTest REQUIRED)
 find_package (Boost 1.61.0 COMPONENTS filesystem system REQUIRED)
 

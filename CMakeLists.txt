@@ -153,5 +153,6 @@ install(EXPORT AimIOTargets
 
 option (ENABLE_TESTING "Build unit and other tests" OFF)
 if (ENABLE_TESTING)
+  enable_testing()
   add_subdirectory (tests)
 endif (ENABLE_TESTING)
