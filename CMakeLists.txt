@@ -50,6 +50,7 @@ include (GenerateExportHeader)
 add_library (AimIO ${SRC})
 set_target_properties(AimIO 
   PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
     VERSION ${AIMIO_VERSION}
     SOVERSION ${AIMIO_MAJOR_VERSION}.${AIMIO_MINOR_VERSION})
 
