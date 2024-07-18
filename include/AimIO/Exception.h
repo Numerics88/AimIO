@@ -11,9 +11,15 @@
 #include "aimio_export.h"
 
 /** Throws AimIOException and sets the file name and line number. */
+#if __cplusplus >= 201703L
+#define throw_aimio_exception(x)                                          \
+  if(std::uncaught_exceptions() == 0)                                     \
+    throw AimIO::AimIOException (x, __FILE__, __LINE__)
+#else
 #define throw_aimio_exception(x)                                          \
   if(!std::uncaught_exception())                                          \
     throw AimIO::AimIOException (x, __FILE__, __LINE__)
+#endif
 
 /** If the argument is false, throws AimIOException and sets the file name and line number.
   *
