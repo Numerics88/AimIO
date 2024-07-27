@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2)
+cmake_minimum_required (VERSION 3.5)
 project (AimIO)
 
 # === Versioning
@@ -30,7 +30,9 @@ find_package (n88util 2.0 REQUIRED)
 include_directories (${N88UTIL_INCLUDE_DIRS})
 mark_as_advanced (n88util_DIR)
 
-find_package (Boost 1.61.0 COMPONENTS filesystem system thread REQUIRED)
+find_package (Boost 1.70.0
+              COMPONENTS filesystem system thread
+              CONFIG REQUIRED)
 if (MSVC)
   add_definitions (-D_CRT_SECURE_NO_WARNINGS)
 endif (MSVC)
