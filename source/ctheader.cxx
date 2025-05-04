@@ -86,7 +86,7 @@ int main(int argc, char **argv)
 
   // Read the file
   reader.filename = fname;
-  reader.ReadIsqImageInfo();
+  reader.ReadImageInfo();
 
   // Show meta data in a format that fits well with FEA workflow.
   if (show_meta) {

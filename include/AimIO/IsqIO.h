@@ -42,14 +42,14 @@ class AIMIO_EXPORT IsqFile
       * This method sets a number of public member variables, which can be read
       * to obtain all the meta-data in the ISQ file.
       */ 
-    void ReadIsqImageInfo ();
+    void ReadImageInfo ();
 
     /** Read the ISQ image data.
       *
       * You must previously have called ReadImageInfo.
       *
       */
-    void ReadIsqImageData (short* data, size_t size);
+    void ReadImageData (short* data, size_t size);
 
     std::string               filename;
 
@@ -117,8 +117,8 @@ class AIMIO_EXPORT IsqFile
 
   protected:
 
-    void ReadIsqBlockList (std::ifstream& f);
-    void ReadIsqHeader (std::ifstream& f);
+    void ReadBlockList (std::ifstream& f);
+    void ReadHeader (std::ifstream& f);
     void ReadAnyIsqData (void* data, int buffer_number, AimIO::aim_storage_format_t type);
 
     BlockList block_list;

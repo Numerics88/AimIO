@@ -2,6 +2,7 @@
 // See LICENSE for details.
 
 #include "AimIO/IsqIO.h"
+#include "AimIO/AimIO.h"
 #include "Compression.h"
 #include "PlatformFloat.h"
 #include <boost/endian/conversion.hpp>
@@ -134,7 +135,7 @@ IsqFile::IsqFile (const char* fn)
 
 
 // ---------------------------------------------------------------------------
-void IsqFile::ReadIsqBlockList (std::ifstream& f)
+void IsqFile::ReadBlockList (std::ifstream& f)
 {
 
   // Read in first 16 bytes
@@ -163,7 +164,7 @@ void IsqFile::ReadIsqBlockList (std::ifstream& f)
 }
 
 // ---------------------------------------------------------------------------
-void IsqFile::ReadIsqHeader (std::ifstream& f)
+void IsqFile::ReadHeader (std::ifstream& f)
 {
   aimio_assert (this->block_list.size());
   
@@ -222,7 +223,7 @@ void IsqFile::ReadIsqHeader (std::ifstream& f)
 }
 
 // ---------------------------------------------------------------------------
-void IsqFile::ReadIsqImageInfo ()
+void IsqFile::ReadImageInfo ()
 {
   // Open file.
   std::ifstream f (this->filename.c_str(), std::ios_base::in | std::ios_base::binary);
@@ -230,8 +231,8 @@ void IsqFile::ReadIsqImageInfo ()
     throw_aimio_exception (std::string("Unable to open file ") + filename); }
   f.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
 
-  this->ReadIsqBlockList (f);
-  this->ReadIsqHeader (f);
+  this->ReadBlockList (f);
+  this->ReadHeader (f);
 }
 
 
@@ -264,7 +265,7 @@ void IsqFile::ReadAnyIsqData
 }
 
 // ---------------------------------------------------------------------------
-void IsqFile::ReadIsqImageData (short* data, size_t size)
+void IsqFile::ReadImageData (short* data, size_t size)
 {
   aimio_assert (this->block_list.size() >= 2);
   aimio_assert (this->buffer_type == ISQFILE_TYPE_SHORT);

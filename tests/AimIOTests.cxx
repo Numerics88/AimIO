@@ -881,7 +881,7 @@ TEST_F (AimIOTests, ReadImage_ISQ)
 
   AimIO::IsqFile reader;
   reader.filename = filename.string();
-  reader.ReadIsqImageInfo();
+  reader.ReadImageInfo();
 
   ASSERT_EQ (AimIO::ISQFILE_VERSION_1, reader.version);
   ASSERT_EQ (3, reader.data_type);
@@ -914,7 +914,7 @@ TEST_F (AimIOTests, ReadImage_ISQ)
   
   size_t N = long_product(reader.dimensions_p);
   std::vector<short> data (N);
-  reader.ReadIsqImageData (data.data(), N);
+  reader.ReadImageData (data.data(), N);
   
   // Since it is a lot of data, just compare first and last 20 values.
   short first[20] = {0,0,0,0,0,0,0,0,17,397,399,-89,-81,116,136,-91,-129,14,-124,11};
