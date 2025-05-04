@@ -2,6 +2,7 @@
 // See LICENSE for details.
 
 #include "AimIO/AimIO.h"
+#include "AimIO/IsqIO.h"
 
 #include <gtest/gtest.h>
 #define BOOST_FILESYSTEM_VERSION 3
@@ -872,6 +873,64 @@ TEST_F (AimIOTests, CopyImage_V3_charcmp)
   {
     ASSERT_EQ (data[i], data2[i]);
   }
+}
+
+TEST_F (AimIOTests, ReadImage_ISQ)
+{
+  boost::filesystem::path filename = boost::filesystem::path(test_dir) / "test_e0001077.isq";
+
+  AimIO::IsqFile reader;
+  reader.filename = filename.string();
+  reader.ReadIsqImageInfo();
+
+  ASSERT_EQ (AimIO::ISQFILE_VERSION_1, reader.version);
+  ASSERT_EQ (3, reader.data_type);
+  ASSERT_EQ (4684, reader.patient_index);
+  ASSERT_EQ (23440, reader.index_measurement);
+  ASSERT_EQ (3584, reader.data_offset);
+  ASSERT_EQ ((tuplet<3,int>(2304,2304,168)), reader.dimensions_p);
+  ASSERT_EQ ((tuplet<3,int>(139852,139852,10197)), reader.dimensions_um);
+  ASSERT_EQ (1783631360, reader.nr_of_bytes);
+  ASSERT_EQ (3483655, reader.nr_of_blocks);
+  ASSERT_EQ (3505, reader.scanner_id);
+  ASSERT_NEAR (60.7, reader.slice_thickness_um, .9); // needs to be tightened up to 1E-5
+  ASSERT_NEAR (60.7, reader.slice_increment_um, .9); // needs to be tightened up to 1E-5
+  ASSERT_EQ (152166, reader.slice_1_pos_um);
+  ASSERT_EQ (-3170, reader.min_data_value);
+  ASSERT_EQ (12154, reader.max_data_value);
+  ASSERT_EQ (8192, reader.mu_scaling);
+  ASSERT_EQ (2304, reader.nr_of_samples);
+  ASSERT_EQ (900, reader.nr_of_projections);
+  ASSERT_EQ (139852, reader.scandist_um);
+  ASSERT_EQ (9, reader.scanner_type);
+  ASSERT_EQ (43000, reader.sampletime_us);
+  ASSERT_EQ (20, reader.site);
+  ASSERT_EQ (142666, reader.reference_line_um);
+  ASSERT_EQ (3, reader.recon_alg);
+  ASSERT_EQ (68000, reader.energy);
+  ASSERT_EQ (1470, reader.intensity);
+  ASSERT_EQ (0, reader.holder);
+  ASSERT_EQ (AimIO::IsqFile::ISQFILE_TYPE_SHORT, reader.buffer_type);
+  
+  size_t N = long_product(reader.dimensions_p);
+  std::vector<short> data (N);
+  reader.ReadIsqImageData (data.data(), N);
+  
+  // Since it is a lot of data, just compare first and last 20 values.
+  short first[20] = {0,0,0,0,0,0,0,0,17,397,399,-89,-81,116,136,-91,-129,14,-124,11};
+  short last[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+  int first_offset=1110; // looked for some non-zero values
+  for (size_t i=0; i<20; ++i)
+  {
+    ASSERT_EQ (first[i], data[i+first_offset]);
+    // std::cout << i << ": " << data[i] << std::endl;
+  }
+  for (size_t i=0; i<20; ++i)
+  {
+    ASSERT_EQ (last[i], data[N-20+i]);
+  }
+  
 }
 
 // --------------------------------------------------------------------

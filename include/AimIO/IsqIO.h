@@ -83,6 +83,8 @@ class AIMIO_EXPORT IsqFile
     n88::tuplet<3,int>        dimensions_p;
     n88::tuplet<3,int>        dimensions_um;
 
+    n88::tuplet<3,int>        offset; // always zero for ISQ files
+
     boost::int32_t            slice_thickness_um;
     boost::int32_t            slice_increment_um;
     boost::int32_t            slice_1_pos_um;
@@ -117,7 +119,6 @@ class AIMIO_EXPORT IsqFile
 
     void ReadIsqBlockList (std::ifstream& f);
     void ReadIsqHeader (std::ifstream& f);
-    buffer_format_t GetTransferBufferType (AimIO::aim_storage_format_t storage_type);
     void ReadAnyIsqData (void* data, int buffer_number, AimIO::aim_storage_format_t type);
 
     BlockList block_list;

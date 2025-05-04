@@ -75,6 +75,7 @@ IsqFile::IsqFile ()
   creation_date (0),
   dimensions_p (0,0,0),
   dimensions_um (0,0,0),
+  offset (0,0,0),
   slice_thickness_um (0),
   slice_increment_um (0),
   slice_1_pos_um (0),
@@ -110,6 +111,7 @@ IsqFile::IsqFile (const char* fn)
   creation_date (0),
   dimensions_p (0,0,0),
   dimensions_um (0,0,0),
+  offset (0,0,0),
   slice_thickness_um (0),
   slice_increment_um (0),
   slice_1_pos_um (0),
@@ -171,10 +173,10 @@ void IsqFile::ReadIsqHeader (std::ifstream& f)
     f.seekg (this->block_list[0].offset);
     f.read ((char*)&fd, sizeof(ima_data_type));
 
-    std::cout << "----------------------------------------------------------------" << std::endl;
-    std::cout << "fill[80] = " << fd.fill[80] << " --> mystery value" << std::endl;
-    std::cout << "fill[81] = " << fd.fill[81] << " --> mystery value" << std::endl;
-    std::cout << "----------------------------------------------------------------" << std::endl;
+    // std::cout << "----------------------------------------------------------------" << std::endl;
+    // std::cout << "fill[80] = " << fd.fill[80] << " --> mystery value" << std::endl;
+    // std::cout << "fill[81] = " << fd.fill[81] << " --> mystery value" << std::endl;
+    // std::cout << "----------------------------------------------------------------" << std::endl;
     
     fd.name[40-1]='\0'; // ensures terminating character at end of string
     this->name = fd.name;
@@ -251,6 +253,14 @@ void IsqFile::ReadAnyIsqData
   f.seekg (this->block_list[buffer_number].offset);
   f.read (&(buffer[0]), this->block_list[buffer_number].size);
 
+  AimIO::Decompress (data,
+                     &(buffer[0]),
+                     buffer.size(),
+                     type,
+                     this->dimensions_p,
+                     this->offset,
+                     (this->version == AIMFILE_VERSION_30)); // boolean is always false
+                     
 }
 
 // ---------------------------------------------------------------------------
