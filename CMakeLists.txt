@@ -22,6 +22,7 @@ set (CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY ON)
 
 set (SRC
   source/AimIO.cxx
+  source/IsqIO.cxx
   source/Compression.cxx)
 
 # == Dependencies
