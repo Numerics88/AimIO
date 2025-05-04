@@ -124,7 +124,7 @@ std::cout << "The data offset is " << reader.data_offset_ << "\n";
 
 // Create a buffer for the image data.
 assert (reader.buffer_type == AimIO::IsqFile::ISQFILE_TYPE_SHORT);
-size_t size = long_product (reader.dimensions_p_);
+size_t size = long_product (reader.dimensions_p);
 std::vector<short> image_data (size);
 
 // Read the image data.
