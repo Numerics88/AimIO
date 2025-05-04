@@ -1,10 +1,10 @@
-cmake_minimum_required (VERSION 3.5)
+cmake_minimum_required (VERSION 3.30)
 project (AimIO)
 
 # === Versioning
 
 set(AIMIO_MAJOR_VERSION 1)
-set(AIMIO_MINOR_VERSION 0)
+set(AIMIO_MINOR_VERSION 1)
 set(AIMIO_PATCH_VERSION 0)
 set(AIMIO_VERSION
   ${AIMIO_MAJOR_VERSION}.${AIMIO_MINOR_VERSION}.${AIMIO_PATCH_VERSION})
@@ -77,6 +77,18 @@ if (N88_BUILD_AIX)
     endif()
 endif()
 
+option (N88_BUILD_CTHEADER "Build ctheader tool." ON)
+if (N88_BUILD_CTHEADER)
+    add_executable (ctheader source/ctheader.cxx)
+    target_link_libraries (ctheader
+      AimIO
+      Boost::filesystem Boost::system
+    )
+    if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        target_link_libraries (ctheader dl pthread)
+    endif()
+endif()
+
 # === Install
 
 install (TARGETS AimIO
@@ -87,6 +99,10 @@ install (TARGETS AimIO
 
 if (N88_BUILD_AIX)
     install (TARGETS aix DESTINATION bin)
+endif ()
+
+if (N88_BUILD_CTHEADER)
+    install (TARGETS ctheader DESTINATION bin)
 endif ()
 
 
