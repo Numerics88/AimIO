@@ -877,7 +877,7 @@ TEST_F (AimIOTests, CopyImage_V3_charcmp)
 
 TEST_F (AimIOTests, ReadImage_ISQ)
 {
-  boost::filesystem::path filename = boost::filesystem::path(test_dir) / "test_e0001077.isq";
+  boost::filesystem::path filename = boost::filesystem::path(test_dir) / "test_e0001082.isq";
 
   AimIO::IsqFile reader;
   reader.filename = filename.string();
@@ -886,26 +886,26 @@ TEST_F (AimIOTests, ReadImage_ISQ)
   ASSERT_EQ (AimIO::ISQFILE_VERSION_1, reader.version);
   ASSERT_EQ (3, reader.data_type);
   ASSERT_EQ (4684, reader.patient_index);
-  ASSERT_EQ (23440, reader.index_measurement);
+  ASSERT_EQ (23487, reader.index_measurement);
   ASSERT_EQ (3584, reader.data_offset);
-  ASSERT_EQ ((tuplet<3,int>(2304,2304,168)), reader.dimensions_p);
-  ASSERT_EQ ((tuplet<3,int>(139852,139852,10197)), reader.dimensions_um);
-  ASSERT_EQ (1783631360, reader.nr_of_bytes);
-  ASSERT_EQ (3483655, reader.nr_of_blocks);
+  ASSERT_EQ ((tuplet<3,int>(2304,2304,8)), reader.dimensions_p);
+  ASSERT_EQ ((tuplet<3,int>(139852,139852,485)), reader.dimensions_um);
+  ASSERT_EQ (84938240, reader.nr_of_bytes);
+  ASSERT_EQ (165895, reader.nr_of_blocks);
   ASSERT_EQ (3505, reader.scanner_id);
   ASSERT_NEAR (60.7, reader.slice_thickness_um, .9); // needs to be tightened up to 1E-5
   ASSERT_NEAR (60.7, reader.slice_increment_um, .9); // needs to be tightened up to 1E-5
-  ASSERT_EQ (152166, reader.slice_1_pos_um);
-  ASSERT_EQ (-3170, reader.min_data_value);
-  ASSERT_EQ (12154, reader.max_data_value);
+  ASSERT_EQ (143586, reader.slice_1_pos_um);
+  ASSERT_EQ (-2284, reader.min_data_value);
+  ASSERT_EQ (10901, reader.max_data_value);
   ASSERT_EQ (8192, reader.mu_scaling);
   ASSERT_EQ (2304, reader.nr_of_samples);
   ASSERT_EQ (900, reader.nr_of_projections);
   ASSERT_EQ (139852, reader.scandist_um);
   ASSERT_EQ (9, reader.scanner_type);
   ASSERT_EQ (43000, reader.sampletime_us);
-  ASSERT_EQ (20, reader.site);
-  ASSERT_EQ (142666, reader.reference_line_um);
+  ASSERT_EQ (4, reader.site);
+  ASSERT_EQ (143586, reader.reference_line_um);
   ASSERT_EQ (3, reader.recon_alg);
   ASSERT_EQ (68000, reader.energy);
   ASSERT_EQ (1470, reader.intensity);
@@ -917,14 +917,14 @@ TEST_F (AimIOTests, ReadImage_ISQ)
   reader.ReadImageData (data.data(), N);
   
   // Since it is a lot of data, just compare first and last 20 values.
-  short first[20] = {0,0,0,0,0,0,0,0,17,397,399,-89,-81,116,136,-91,-129,14,-124,11};
+  short first[20] = {0,0,0,0,0,0,0,0,34,-320,-188,-41,-276,-187,92,11,89,365,229,-32};
   short last[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
   int first_offset=1110; // looked for some non-zero values
   for (size_t i=0; i<20; ++i)
   {
     ASSERT_EQ (first[i], data[i+first_offset]);
-    // std::cout << i << ": " << data[i] << std::endl;
+    // std::cout << i << ": " << data[i+first_offset] << std::endl;
   }
   for (size_t i=0; i<20; ++i)
   {
