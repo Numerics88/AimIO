@@ -2,9 +2,6 @@
 
 AimIO is a simple C++ class for reading and writing Scanco AIM image files and reading Scanco ISQ image files (cannot write ISQ). 
 
-[![Build Status](https://dev.azure.com/babesler/n88/_apis/build/status/Numerics88.AimIO?branchName=master)](https://dev.azure.com/babesler/n88/_build/latest?definitionId=8&branchName=master)
-[![Anaconda-Server Badge](https://anaconda.org/numerics88/aimio/badges/installer/conda.svg)](https://anaconda.org/Numerics88/aimio)
-
 ## Compiling and linking
 
 AimIO requires the following:
@@ -160,8 +157,7 @@ For a complete working example, have a look at the test code in tests/AimIOTests
 
 ## Authors and Contributors
 
-AimIO was developed by Eric Nodwell (eric.nodwell@numerics88.com) at Numerics88
-Solutions Ltd.
+AimIO was developed by Eric Nodwell at Numerics88 Solutions Ltd.
 
 
 ## Licence

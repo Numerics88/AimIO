@@ -1,9 +1,5 @@
-/*=========================================================================
-
-  Copyright (c) 2025, Numerics88 Solutions Ltd.
-  All rights reserved.
-
-=========================================================================*/
+// Copyright (c) Steven Boyd
+// See LICENSE for details.
 
 #include "AimIO/AimIO.h"
 #include "AimIO/IsqIO.h"

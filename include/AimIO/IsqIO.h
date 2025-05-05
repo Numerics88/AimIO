@@ -1,4 +1,4 @@
-// Copyright (c) Eric Nodwell
+// Copyright (c) Steven Boyd
 // See LICENSE for details.
 
 #ifndef __AimIO_IsqIO_h
@@ -14,7 +14,6 @@
 #include <boost/cstdint.hpp>
 
 #include "aimio_export.h"
-
 
 namespace AimIO
 {
@@ -127,3 +126,78 @@ class AIMIO_EXPORT IsqFile
 }  // namespace
 
 #endif
+
+
+// Copied from:
+// https://www.scanco.ch/faq-customers.php
+//
+// ISQ Header format ISQ files consist of a standard 512-byte header, optional extended
+// header blocks and the data part. Because the size of the extended header can vary,
+// one has to read the data-offset (last 4 bytes of the 512-byte header) to be able to
+// get to the start of the data (image) part. The offset is in 512-byte blocks, meaning
+// if you encounter a value of 6, the data starts at byte 3584 (512 for standard
+// header + 6x512 for the extended header). Here is the header structure in c code:
+//
+// typedef struct {
+// /*---------------------------------------------*/
+// char check[16];
+// int data_type;
+// int nr_of_bytes; /* either one of them */
+// int nr_of_blocks; /* or both, but min. of 1 */
+// int patient_index; /* 1 block = 512 bytes */
+// int scanner_id;
+// int creation_date[2];
+// /*---------------------------------------------*/
+// int dimx_p;
+// int dimy_p;
+// int dimz_p;
+// int dimx_um;
+// int dimy_um;
+// int dimz_um;
+// int slice_thickness_um;
+// int slice_increment_um;
+// int slice_1_pos_um;
+// int min_data_value;
+// int max_data_value;
+// int mu_scaling; /* p(x,y,z)/mu_scaling = value [1/cm] */
+// int nr_of_samples;
+// int nr_of_projections;
+// int scandist_um;
+// int scanner_type;
+// int sampletime_us;
+// int index_measurement;
+// int site; /* Coded value */
+// int reference_line_um;
+// int recon_alg; /* Coded value */
+// char name[40];
+// int energy; /*V */
+// int intensity; /* uA */
+// int fill[83];
+// /*---------------------------------------------*/
+// int data_offset; /* in 512-byte-blocks */
+// } ima_data_type, *ima_data_typeP;
+//
+// The first 16 bytes are a string 'CTDATA-HEADER_V1', used to identify the type of data.
+//
+// The 'int' are all 4-byte integers.
+//
+// dimx_p is the dimension in pixels, dimx_um the dimension in microns.
+//
+// So dimx_p is at byte-offset 44, then dimy_p at 48, dimz_p (=number of slices) at 52.
+//
+// The microCT calculates so called 'x-ray linear attenuation' values. These (float) values
+// are scaled with 'mu_scaling' (see header, e.g. 4096) to get to the signed 2-byte integers
+// values that we save in the .isq file. e.g. Pixel value 8192 corresponds to lin. att. coeff.
+// of 2.0 [1/cm] (8192/4096)
+//
+// Following to the headers is the data part. It is in 2-byte short integers (signed) and
+// starts from the top-left pixel of slice 1 to the left, then the next line follows, until
+// the last pixel of the last sclice in the lower right.
+//
+// To check the header on the VMS machine (byte by byte):
+//
+// $ dump/dec c0001235.ISQ/block=count=1
+//
+// This shows the bytes on the left, and interpretation as ASCII on the right, the column on
+// the far right shows you byte number of right-most number per line: The bytes are displayed
+// from RIGHT TO LEFT! (--> data_offset, bytes 508-511, is number in lower left (!) corner

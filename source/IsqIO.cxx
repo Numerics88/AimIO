@@ -1,4 +1,4 @@
-// Copyright (c) Eric Nodwell
+// Copyright (c) Steven Boyd
 // See LICENSE for details.
 
 #include "AimIO/IsqIO.h"
