@@ -3,6 +3,7 @@
 
 #include "AimIO/AimIO.h"
 #include "AimIO/IsqIO.h"
+#include "AimIO/DateTime.h"
 #include "AimIO/Definitions.h"
 #include "PlatformFloat.h"  
 
@@ -145,9 +146,9 @@ int main(int argc, char **argv)
   std::cout << std::right << std::setw(22) << "FOV/Diameter : "  
             << std::right << std::setw(6) << reader.scandist_um << " [µm]" << std::endl;
   std::cout << std::right << std::setw(22) << "Voxel Size : "  
-            << std::right << std::setw(6) << reader.slice_thickness_um << " [µm]" << " --> rounded?" << std::endl;
+            << std::right << std::setw(6) << std::fixed << std::setprecision(1) << reader.spacing[0] << " [µm]" << std::endl;
   std::cout << std::right << std::setw(22) << "Slice Increment : "  
-            << std::right << std::setw(6) << reader.slice_increment_um << " [µm]" << " --> rounded?" << std::endl;
+            << std::right << std::setw(6) << std::fixed << std::setprecision(1) << reader.spacing[2] << " [µm]" << std::endl;
   std::cout << std::right << std::setw(22) << "Z-Position Slice 1 : "  
             << std::right << std::setw(6) << reader.slice_1_pos_um << " [µm]" << std::endl;
   std::cout << std::right << std::setw(22) << "Reference-Line : "  
@@ -170,6 +171,9 @@ int main(int argc, char **argv)
             << std::right << std::setw(6) << "0.0" << " [deg]" << std::endl; // rotation is not captured in the ISQ header.
   std::cout << std::right << std::setw(22) << "Holder : "  
             << std::right << std::setw(6) << reader.holder << std::endl;
+  
+  std::string s("today date");
+  AimIO::FormatDateTime(s, 2025, 5, 13, 9, 22, 45, 215.1234);
   
   return 0;
 }

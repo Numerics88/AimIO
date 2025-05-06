@@ -213,6 +213,12 @@ void IsqFile::ReadHeader (std::ifstream& f)
     this->holder = fd.fill[78]; // the holder number is hidden in the fill field
 
     this->data_type     = fd.data_type; // ISQ files use integer 3
+    
+    // calculated to get voxel size because slice_thickness_um and slice_increment_um are estimates only
+    this->spacing[0] = (float)(dimensions_um[0]) / (float)(dimensions_p[0]);
+    this->spacing[1] = (float)(dimensions_um[1]) / (float)(dimensions_p[1]);
+    this->spacing[2] = (float)(dimensions_um[2]) / (float)(dimensions_p[2]);
+
   }
 
   else {
