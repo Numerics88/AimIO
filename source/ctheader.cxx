@@ -104,6 +104,18 @@ int main(int argc, char **argv)
     return 0;
   }
 
+  // Convert VMS Date/Time
+  int year=0;
+  int month=0;
+  int day=0;
+  int hour=0;
+  int minute=0;
+  int second=0;
+  int millis=0;
+  AimIO::DecodeDate(reader.creation_date[0],reader.creation_date[1],year,month,day,hour,minute,second,millis);
+  std::string date_string;
+  AimIO::FormatDateTime(date_string,year,month,day,hour,minute,second,millis);
+  
   // Print header information
   std::cout << std::endl;
   std::cout << "Type: IMA-Data Sequence" << std::endl;
@@ -115,7 +127,7 @@ int main(int argc, char **argv)
             << std::left << std::setw(50) << reader.index_measurement << std::endl;
   std::cout << std::endl;
   std::cout << std::right << std::setw(22) << "Creation Date : "  
-            << std::left << std::setw(30) << reader.creation_date << " --> how to convert?" << std::endl;
+            << std::left << std::setw(30) << date_string << std::endl;
   std::cout << std::endl;
   std::cout << std::right << std::setw(22) << "Dim X : "
             << std::setw(6) << std::right << reader.dimensions_p[0] << " [p] "
@@ -172,8 +184,20 @@ int main(int argc, char **argv)
   std::cout << std::right << std::setw(22) << "Holder : "  
             << std::right << std::setw(6) << reader.holder << std::endl;
   
-  std::string s("today date");
-  AimIO::FormatDateTime(s, 2025, 5, 13, 9, 22, 45, 215.1234);
+  // std::string s1("today date");
+  // std::string s2("today date");
+  // int year=0;
+  // int month=0;
+  // int day=0;
+  // int hour=0;
+  // int minute=0;
+  // int second=0;
+  // int millis=0;
+  // AimIO::DecodeDate(reader.creation_date[0],reader.creation_date[1],year,month,day,hour,minute,second,millis);
+  // // AimIO::FormatDateTime(s1, 2025, 5, 3, 9, 22, 45, 25);
+  // AimIO::FormatDateTime(s2,year,month,day,hour,minute,second,millis);
+  //
+  // std::cout << "Formatted date: " << s2 << std::endl;
   
   return 0;
 }

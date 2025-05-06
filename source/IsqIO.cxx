@@ -73,7 +73,7 @@ IsqFile::IsqFile ()
   nr_of_blocks (0),
   patient_index (0),
   scanner_id (0),
-  creation_date (0),
+  // creation_date(0), // not sure how to initialize this
   dimensions_p (0,0,0),
   dimensions_um (0,0,0),
   offset (0,0,0),
@@ -109,7 +109,7 @@ IsqFile::IsqFile (const char* fn)
   nr_of_blocks (0),
   patient_index (0),
   scanner_id (0),
-  creation_date (0),
+  // creation_date(0), // not sure how to initialize this
   dimensions_p (0,0,0),
   dimensions_um (0,0,0),
   offset (0,0,0),
@@ -184,7 +184,8 @@ void IsqFile::ReadHeader (std::ifstream& f)
     this->patient_index = fd.patient_index;
     this->index_measurement = fd.index_measurement;
     
-    this->creation_date = (boost::int64_t)fd.creation_date;
+    this->creation_date[0] = fd.creation_date[0];
+    this->creation_date[1] = fd.creation_date[1];
     
     this->dimensions_p = fd.dim_p;
     this->dimensions_um = fd.dim_um;

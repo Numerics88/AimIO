@@ -74,7 +74,7 @@ class AIMIO_EXPORT IsqFile
     boost::int32_t            patient_index;
     boost::int32_t            scanner_id;
     
-    boost::int64_t            creation_date;
+    boost::int32_t            creation_date[2];
 
     // Dimensions of the image as (x,y,z) in pixels and micrometers.
     //
