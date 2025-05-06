@@ -217,7 +217,13 @@ void IsqFile::ReadHeader (std::ifstream& f)
     // calculated to get voxel size because slice_thickness_um and slice_increment_um are estimates only
     this->spacing[0] = (float)(dimensions_um[0]) / (float)(dimensions_p[0]);
     this->spacing[1] = (float)(dimensions_um[1]) / (float)(dimensions_p[1]);
-    this->spacing[2] = (float)(dimensions_um[2]) / (float)(dimensions_p[2]);
+    if (dimensions_um[2] != 0 && dimensions_p[2] != 0)
+    {
+      this->spacing[2] = (float)(dimensions_um[2]) / (float)(dimensions_p[2]);
+    } else {
+      this->spacing[2] = 1.0; // data is two-dimensional
+    }
+    
 
   }
 
