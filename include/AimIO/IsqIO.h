@@ -84,7 +84,8 @@ class AIMIO_EXPORT IsqFile
 
     n88::tuplet<3,int>        offset; // always zero for ISQ files
     n88::tuplet<3,float>      spacing; // not in header, but calculated from header information
-
+    std::string               creation_date_string;
+    
     boost::int32_t            slice_thickness_um;
     boost::int32_t            slice_increment_um;
     boost::int32_t            slice_1_pos_um;

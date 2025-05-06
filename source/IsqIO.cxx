@@ -3,6 +3,7 @@
 
 #include "AimIO/IsqIO.h"
 #include "AimIO/AimIO.h"
+#include "AimIO/DateTime.h"
 #include "Compression.h"
 #include "PlatformFloat.h"
 #include <boost/endian/conversion.hpp>
@@ -225,6 +226,16 @@ void IsqFile::ReadHeader (std::ifstream& f)
       this->spacing[2] = 1.0; // data is two-dimensional
     }
     
+    // Convert VMS Date/Time
+    int year=0;
+    int month=0;
+    int day=0;
+    int hour=0;
+    int minute=0;
+    int second=0;
+    int millis=0;
+    AimIO::DecodeDate(this->creation_date[0],this->creation_date[1],year,month,day,hour,minute,second,millis);
+    AimIO::FormatDateTime(this->creation_date_string,year,month,day,hour,minute,second,millis);
 
   }
 
