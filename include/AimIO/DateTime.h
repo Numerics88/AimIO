@@ -1,6 +1,5 @@
-// Copyright (c) Steven Boyd
-// See LICENSE for details.
-// From David Gobbi, https://github.com/dgobbi/vtk-dicom/blob/master/Source/vtkScancoCTReader.cxx#L208
+// Copyright (c) 2015 David Gobbi
+// https://github.com/dgobbi/vtk-dicom/blob/master/Source/vtkScancoCTReader.cxx#L208
 
 #ifndef __DateTime_h
 #define __DateTime_h
@@ -48,8 +47,8 @@ void FormatDateTime (
   *
   */
 void DecodeDate (
-    boost::int32_t d1,
-    boost::int32_t d2,
+    boost::uint32_t low,
+    boost::uint32_t high,
     int& year, 
     int& month, 
     int& day,
