@@ -1,6 +1,5 @@
-// Copyright (c) Steven Boyd
-// See LICENSE for details.
-// From David Gobbi, https://github.com/dgobbi/vtk-dicom/blob/master/Source/vtkScancoCTReader.cxx#L208
+// Copyright (c) 2015 David Gobbi
+// https://github.com/dgobbi/vtk-dicom/blob/master/Source/vtkScancoCTReader.cxx#L208
 
 #include "AimIO/DateTime.h"
 #include <iostream>
@@ -47,8 +46,8 @@ void FormatDateTime
 }
 
 void DecodeDate (
-    boost::int32_t low,
-    boost::int32_t high,
+    boost::uint32_t low,
+    boost::uint32_t high,
     int& year, 
     int& month, 
     int& day,
@@ -67,18 +66,18 @@ void DecodeDate (
   const uint64_t millisPerDay = 3600 * 24 * 1000;
 
   // Read the date as a long integer with units of 1e-7 seconds
-  boost::int32_t d1 = vms_to_native_int32(&low);
-  boost::int32_t d2 = vms_to_native_int32(&high);
+  boost::uint32_t d1 = vms_to_native_int32(&low);
+  boost::uint32_t d2 = vms_to_native_int32(&high);
   boost::uint64_t tVMS = d1 + (static_cast<uint64_t>(d2) << 32);
   boost::uint64_t time = tVMS/10000 + julianOffset*millisPerDay;
 
-  boost::int64_t y, m, d;
-  boost::int64_t julianDay = static_cast<boost::int64_t>(time / millisPerDay);
+  boost::uint64_t y, m, d;
+  boost::uint64_t julianDay = static_cast<boost::uint64_t>(time / millisPerDay);
   time -= millisPerDay*julianDay;
 
   // Gregorian calendar starting from October 15, 1582
   // This algorithm is from Henry F. Fliegel and Thomas C. Van Flandern
-  boost::int64_t ell, n, i, j;
+  boost::uint64_t ell, n, i, j;
   ell = julianDay + 68569;
   n = (4 * ell) / 146097;
   ell = ell - (146097 * n + 3) / 4;
@@ -94,13 +93,13 @@ void DecodeDate (
   year = y;
   month = m;
   day = d;
-  hour = static_cast<boost::int64_t>(time / millisPerHour);
+  hour = static_cast<boost::uint64_t>(time / millisPerHour);
   time -= hour*millisPerHour;
-  minute = static_cast<boost::int64_t>(time / millisPerMinute);
+  minute = static_cast<boost::uint64_t>(time / millisPerMinute);
   time -= minute*millisPerMinute;
-  second = static_cast<boost::int64_t>(time / millisPerSecond);
+  second = static_cast<boost::uint64_t>(time / millisPerSecond);
   time -= second*millisPerSecond;
-  millis = static_cast<boost::int64_t>(time);
+  millis = static_cast<boost::uint64_t>(time);
 }
 
 }  // namespace
