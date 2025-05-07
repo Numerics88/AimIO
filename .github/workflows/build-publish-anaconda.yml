@@ -1,0 +1,63 @@
+# This workflow builds and publishes the conda package to the Numerics88 channel
+# using the openalea/action-build-publish-anaconda action.
+name: Conda Build And Publish
+
+on:
+    push:
+        branches:
+            - kean/ci
+    workflow_dispatch:
+
+jobs:
+    build-and-publish:
+        name: Conda deployment
+        runs-on: ${{ matrix.os }}
+        strategy:
+          matrix:
+            # OS types: Windows x64, macOS 13 (last intel based runner), macOS latest (Apple silicon), and Ubuntu x64
+            # ------------------------------------------------------
+            os: ["macos-13", "macos-latest", "windows-latest", "ubuntu-latest"]
+            python-minor-version: [9]
+
+        steps:
+          - name: Checkout repo
+            uses: actions/checkout@v4
+            with:
+              ref: master
+              fetch-depth: 0
+
+          - name: Set CONDA_BUILD_SYSROOT dynamically
+            if: startsWith(matrix.os, 'macos')
+            run: |
+              if [[ "${{ matrix.os }}" == "macos-13" ]]; then
+                echo "CONDA_BUILD_SYSROOT=/Applications/Xcode_14.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" >> $GITHUB_ENV
+                echo "CONDA_BUILD_SYSROOT:" >> ./conda-recipe/n88util/conda_build_config.yaml
+                echo "  - /Applications/Xcode_14.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" >> ./conda-recipe/n88util/conda_build_config.yaml
+              elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+                XCODE_SDK="$(xcode-select -p)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+                echo "CONDA_BUILD_SYSROOT=$XCODE_SDK" >> $GITHUB_ENV
+                echo "CONDA_BUILD_SYSROOT:" >> ./conda-recipe/n88util/conda_build_config.yaml
+                echo "  - $XCODE_SDK" >> ./conda-recipe/n88util/conda_build_config.yaml
+              fi
+
+          - name: Fetch all tags
+            run: git fetch --tags
+            shell: bash
+
+          - name: Set GIT_RELEASE_TAG
+            run: |
+              LATEST_TAG=$(git describe --abbrev=0 --tags --always)
+              echo "GIT_RELEASE_TAG=$LATEST_TAG" >> $GITHUB_ENV
+            shell: bash
+            
+          - name: Build and publish
+            uses: openalea/action-build-publish-anaconda@v0.1.5
+            with:
+              conda: conda-recipe/n88util
+              mamba: false
+              python: ${{ matrix.python-minor-version }}
+              numpy: '22'
+              channels: friedchickean, Numerics88, defaults
+              token: ${{ secrets.KEAN_CONDA_TOKEN }}
+              publish: true
+              label: main
