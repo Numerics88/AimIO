@@ -23,7 +23,7 @@ jobs:
           - name: Checkout repo
             uses: actions/checkout@v4
             with:
-              ref: master
+              ref: kean/ci
               fetch-depth: 0
 
           - name: Set CONDA_BUILD_SYSROOT dynamically

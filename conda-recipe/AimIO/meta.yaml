@@ -12,14 +12,14 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - cmake >=3.2
-    - boost
+    - boost >=1.56
     - ninja
     - gtest
     - n88util >=3.0
   host:
     - libcxx <=14.0.6
   run:
-    - boost
+    - boost >=1.56
     - n88util >=3.0
 
 about:
