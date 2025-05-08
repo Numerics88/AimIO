@@ -16,13 +16,11 @@ requirements:
     - ninja
     - gtest
     - n88util >=3.0
-    - libcxx <=14.0.6
   host:
     - libcxx <=14.0.6
   run:
     - boost >=1.57
     - n88util >=3.0
-    - libcxx <=14.0.6
 
 about:
   home: https://github.com/Numerics88/AimIO

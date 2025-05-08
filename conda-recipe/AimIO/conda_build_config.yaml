@@ -6,13 +6,11 @@ cxx_compiler:
   - gxx                        # [linux]
   - clangxx                    # [osx]
   - vs2015                     # [win]
-libcxx:
-  - 14.0.6
 cxx_compiler_version:
   - 14.0.6                     # [osx]
   - 12                         # [linux]
 clang_variant:
   - default
 channels:
-  - Numerics88
+  - friedchickean
   - defaults
