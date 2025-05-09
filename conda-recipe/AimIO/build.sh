@@ -1,18 +1,13 @@
 set -x
 
+# Deactivate any existing conda environment to avoid mismatches with build config
+# Without this, the build fails for MacOS-13 runner
+conda deactivate
+
 # Create build directory
 mkdir build
 cd build
 BUILD_CONFIG=Release
-
-# print out n88util package version installed by conda
-echo "n88util version: $(n88util --version)"
-echo "n88util path: $(which n88util)"
-echo "conda list: $(conda list n88util)"
-
-# Deactivate any existing conda environment to avoid mismatches with build config
-# Without this, the build fails for MacOS-13 runner
-conda deactivate
 
 # Platform specifics
 declare -a CMAKE_PLATFORM_FLAGS
