@@ -39,20 +39,6 @@ jobs:
                 echo "CONDA_BUILD_SYSROOT:" >> ./conda-recipe/AimIO/conda_build_config.yaml
                 echo "  - $XCODE_SDK" >> ./conda-recipe/AimIO/conda_build_config.yaml
               fi
-
-          - name: Fetch all tags
-            run: git fetch --tags
-            shell: bash
-
-          # - name: Set GIT_RELEASE_TAG
-          #   run: |
-          #     LATEST_TAG=$(git describe --abbrev=0 --tags --always)
-          #     echo "GIT_RELEASE_TAG=$LATEST_TAG" >> $GITHUB_ENV
-          #   shell: bash
-          - name: Set GIT_RELEASE_TAG
-            run: |
-              echo "GIT_RELEASE_TAG=v2.0.0" >> $GITHUB_ENV
-            shell: bash
             
           - name: Build and publish
             uses: openalea/action-build-publish-anaconda@v0.1.5
