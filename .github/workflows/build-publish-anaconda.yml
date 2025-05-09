@@ -44,10 +44,14 @@ jobs:
             run: git fetch --tags
             shell: bash
 
+          # - name: Set GIT_RELEASE_TAG
+          #   run: |
+          #     LATEST_TAG=$(git describe --abbrev=0 --tags --always)
+          #     echo "GIT_RELEASE_TAG=$LATEST_TAG" >> $GITHUB_ENV
+          #   shell: bash
           - name: Set GIT_RELEASE_TAG
             run: |
-              LATEST_TAG=$(git describe --abbrev=0 --tags --always)
-              echo "GIT_RELEASE_TAG=$LATEST_TAG" >> $GITHUB_ENV
+              echo "GIT_RELEASE_TAG=v2.0.0" >> $GITHUB_ENV
             shell: bash
             
           - name: Build and publish
