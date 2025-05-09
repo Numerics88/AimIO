@@ -74,7 +74,6 @@ IsqFile::IsqFile ()
   nr_of_blocks (0),
   patient_index (0),
   scanner_id (0),
-  creation_date {0,0},
   dimensions_p (0,0,0),
   dimensions_um (0,0,0),
   offset (0,0,0),
@@ -96,7 +95,10 @@ IsqFile::IsqFile ()
   energy (0),
   intensity (0),
   data_offset (0)
-  {}
+{
+  creation_date[0] = 0;
+  creation_date[1] = 0;
+}
 
 
 // ---------------------------------------------------------------------------
