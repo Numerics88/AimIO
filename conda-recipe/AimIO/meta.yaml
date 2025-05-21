@@ -1,6 +1,6 @@
 package:
   name: aimio
-  version: {{ GIT_DESCRIBE_TAG | lower | replace("v","") }}
+  version: 2.0.0
 
 source:
   path: ./../../
@@ -17,7 +17,7 @@ requirements:
     - gtest
     - n88util >=3.0
   host:
-    - libcxx <=14.0.6
+    - boost >=1.56
 
 about:
   home: https://github.com/Numerics88/AimIO

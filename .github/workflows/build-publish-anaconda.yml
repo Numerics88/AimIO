@@ -17,7 +17,7 @@ jobs:
             # OS types: Windows x64, macOS 13 (last intel based runner), macOS latest (Apple silicon), and Ubuntu x64
             # ------------------------------------------------------
             os: ["macos-13", "macos-latest", "windows-latest", "ubuntu-latest"]
-            python-minor-version: [9]
+            python-minor-version: [12]
 
         steps:
           - name: Checkout repo
@@ -25,20 +25,6 @@ jobs:
             with:
               ref: kean/ci
               fetch-depth: 0
-
-          - name: Set CONDA_BUILD_SYSROOT dynamically
-            if: startsWith(matrix.os, 'macos')
-            run: |
-              if [[ "${{ matrix.os }}" == "macos-13" ]]; then
-                echo "CONDA_BUILD_SYSROOT=/Applications/Xcode_14.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" >> $GITHUB_ENV
-                echo "CONDA_BUILD_SYSROOT:" >> ./conda-recipe/AimIO/conda_build_config.yaml
-                echo "  - /Applications/Xcode_14.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" >> ./conda-recipe/AimIO/conda_build_config.yaml
-              elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-                XCODE_SDK="$(xcode-select -p)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-                echo "CONDA_BUILD_SYSROOT=$XCODE_SDK" >> $GITHUB_ENV
-                echo "CONDA_BUILD_SYSROOT:" >> ./conda-recipe/AimIO/conda_build_config.yaml
-                echo "  - $XCODE_SDK" >> ./conda-recipe/AimIO/conda_build_config.yaml
-              fi
             
           - name: Build and publish
             uses: openalea/action-build-publish-anaconda@v0.1.5
@@ -47,7 +33,7 @@ jobs:
               mamba: false
               python: ${{ matrix.python-minor-version }}
               numpy: '22'
-              channels: friedchickean, defaults
+              channels: friedchickean, conda-forge, defaults
               token: ${{ secrets.KEAN_CONDA_TOKEN }}
               publish: true
               label: main

@@ -1,9 +1,5 @@
 set -x
 
-# Deactivate any existing conda environment to avoid mismatches with build config
-# Without this, the build fails for MacOS-13 runner
-conda deactivate
-
 # Create build directory
 mkdir build
 cd build
@@ -41,5 +37,3 @@ ninja install -v
 
 # Run tests
 ctest -V
-
-conda activate
