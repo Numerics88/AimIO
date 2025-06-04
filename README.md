@@ -1,6 +1,10 @@
 # AimIO
 
-AimIO is a simple C++ class for reading and writing Scanco AIM image files and reading Scanco ISQ image files (cannot write ISQ). 
+AimIO is a simple C++ class for reading and writing Scanco AIM image files and reading Scanco ISQ image files (cannot write ISQ).
+
+[![Conda Build And Publish](https://github.com/Numerics88/AimIO/actions/workflows/build-publish-anaconda.yml/badge.svg?branch=master)](https://github.com/Numerics88/AimIO/actions/workflows/build-publish-anaconda.yml)
+[![Anaconda-Server Badge](https://anaconda.org/numerics88/aimio/badges/version.svg)](https://anaconda.org/numerics88/aimio)
+[![Anaconda-Server Badge](https://anaconda.org/numerics88/aimio/badges/platforms.svg)](https://anaconda.org/numerics88/aimio)
 
 ## Compiling and linking
 
