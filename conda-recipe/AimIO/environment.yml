@@ -1,0 +1,10 @@
+name: n88
+channels:
+  - Numerics88
+  - defaults
+dependencies:
+  - python >=3.9
+  - cmake >=3.30.3
+  - boost >=1.56
+  - ninja
+  - gtest

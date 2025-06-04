@@ -1,9 +1,10 @@
 # AimIO
 
-AimIO is a simple C++ class for reading and writing Scanco AIM image files.
+AimIO is a simple C++ class for reading and writing Scanco AIM image files and reading Scanco ISQ image files (cannot write ISQ).
 
-[![Build Status](https://dev.azure.com/babesler/n88/_apis/build/status/Numerics88.AimIO?branchName=master)](https://dev.azure.com/babesler/n88/_build/latest?definitionId=8&branchName=master)
-[![Anaconda-Server Badge](https://anaconda.org/numerics88/aimio/badges/installer/conda.svg)](https://anaconda.org/Numerics88/aimio)
+[![Conda Build And Publish](https://github.com/Numerics88/AimIO/actions/workflows/build-publish-anaconda.yml/badge.svg?branch=master)](https://github.com/Numerics88/AimIO/actions/workflows/build-publish-anaconda.yml)
+[![Anaconda-Server Badge](https://anaconda.org/numerics88/aimio/badges/version.svg)](https://anaconda.org/numerics88/aimio)
+[![Anaconda-Server Badge](https://anaconda.org/numerics88/aimio/badges/platforms.svg)](https://anaconda.org/numerics88/aimio)
 
 ## Compiling and linking
 
@@ -14,7 +15,7 @@ AimIO requires the following:
   * n88util
   * Google test: https://github.com/google/googletest
 
-To use AimIO, it is sufficient to just include the files AimIO.cxx
+To use AimIO, it is sufficient to just include the files AimIO.cxx, IsqIO.cxx
 and Compression.cxx in your project. Compiling it as a library is possible too.
 
 To build and run the tests with cmake, on linux or OS X, something like the
@@ -105,6 +106,35 @@ writer.version = AimIO::AIMFILE_VERSION_20;
 
 For more details, refer to the header file AimIO.h .
 
+### Reading an ISQ file
+
+Here is a simple example of reading an ISQ file. The data type is always short.
+
+```C++
+// Create IsqFile object.
+AimIO::IsqFile reader;
+
+// Read header.
+reader.filename = "myfile.isq";
+reader.ReadImageInfo();
+
+// Examine some header values.
+std::cout << "The dimensions are " << reader.dimensions_p_ << "\n";
+std::cout << "The size in number of bytes is " << reader.nr_of_bytes << "\n";
+std::cout << "The data offset is " << reader.data_offset_ << "\n";
+
+// Create a buffer for the image data.
+assert (reader.buffer_type == AimIO::IsqFile::ISQFILE_TYPE_SHORT);
+size_t size = long_product (reader.dimensions_p);
+std::vector<short> image_data (size);
+
+// Read the image data.
+reader.ReadImageData (image_data.data(), size);
+```
+
+For more details, refer to the header file IsqIO.h .
+
+For a complete working example, have a look at the test code in tests/AimIOTests.cxx .
 
 ## Limitations
 
@@ -131,8 +161,7 @@ For more details, refer to the header file AimIO.h .
 
 ## Authors and Contributors
 
-AimIO was developed by Eric Nodwell (eric.nodwell@numerics88.com) at Numerics88
-Solutions Ltd.
+AimIO was developed by Eric Nodwell at Numerics88 Solutions Ltd.
 
 
 ## Licence

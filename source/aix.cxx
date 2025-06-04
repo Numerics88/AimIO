@@ -1,9 +1,5 @@
-/*=========================================================================
-
-  Copyright (c) 2020, Numerics88 Solutions Ltd.
-  All rights reserved.
-
-=========================================================================*/
+// Copyright (c) Eric Nodwell
+// See LICENSE for details.
 
 #include "AimIO/AimIO.h"
 #include "AimIO/Definitions.h"

@@ -14,7 +14,8 @@ enum aim_version_t {
   AIMFILE_VERSION_10,
   AIMFILE_VERSION_11,
   AIMFILE_VERSION_20,
-  AIMFILE_VERSION_30};
+  AIMFILE_VERSION_30,
+  ISQFILE_VERSION_1};
 
 // These are internal storage types for AIM files.
 // More possible types exist than this, but this seems to be
