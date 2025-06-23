@@ -3,8 +3,8 @@ project (AimIO)
 
 # === Versioning
 
-set(AIMIO_MAJOR_VERSION 1)
-set(AIMIO_MINOR_VERSION 1)
+set(AIMIO_MAJOR_VERSION 2)
+set(AIMIO_MINOR_VERSION 0)
 set(AIMIO_PATCH_VERSION 0)
 set(AIMIO_VERSION
   ${AIMIO_MAJOR_VERSION}.${AIMIO_MINOR_VERSION}.${AIMIO_PATCH_VERSION})
@@ -28,7 +28,7 @@ set (SRC
 
 # == Dependencies
 
-find_package (n88util 2.0 REQUIRED)
+find_package (n88util 3.0 REQUIRED)
 include_directories (${N88UTIL_INCLUDE_DIRS})
 mark_as_advanced (n88util_DIR)
 

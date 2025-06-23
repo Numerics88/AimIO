@@ -16,6 +16,8 @@
 static void show_usage()
 {
   std::cerr << "\n"
+            << "aix Version 2.0.0. Numerics88 Solutions.\n" 
+            << "\n"
             << "Format: aix aim_file [-help] [-log] [-meta]\n"
             << "    --log, -l  : show processing log\n"
             << "    --meta, -m : show scan meta data\n"
