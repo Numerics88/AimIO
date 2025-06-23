@@ -17,6 +17,8 @@
 static void show_usage()
 {
   std::cerr << "\n"
+            << "ctheader Version 2.0.0. Numerics88 Solutions.\n" 
+            << "\n"
             << "Format: ctheader isq_file [-help]\n"
             << "    --meta, -m : show scan meta data\n"
             << "                 [name] [samp] [meas] [site]\n"

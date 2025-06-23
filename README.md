@@ -161,7 +161,7 @@ For a complete working example, have a look at the test code in tests/AimIOTests
 
 ## Authors and Contributors
 
-AimIO was developed by Eric Nodwell at Numerics88 Solutions Ltd.
+AimIO was developed by Eric Nodwell at Numerics88 Solutions.
 
 
 ## Licence
