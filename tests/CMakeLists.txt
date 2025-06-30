@@ -4,7 +4,10 @@ find_package (GTest REQUIRED)
 
 include (ExternalData)
 
-set (ExternalData_URL_TEMPLATES "http://numerics88.com/data/%(algo)/%(hash)")
+# Update 6/30/25: .isq is too large to be included in the repository.
+# The test data is now fetched from a GitHub release.
+# set (ExternalData_URL_TEMPLATES "http://numerics88.com/data/%(algo)/%(hash)")
+set (ExternalData_URL_TEMPLATES "https://github.com/Bonelab/bonelab.github.io/releases/download/test_files/%(hash)")
 
 ExternalData_Expand_Arguments(
   fetch_data_tarball
