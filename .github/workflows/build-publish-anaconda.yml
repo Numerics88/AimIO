@@ -1,10 +1,12 @@
 # This workflow builds and publishes the conda package to the Numerics88 channel
 # using the openalea/action-build-publish-anaconda action.
-name: Conda Build And Publish
+name: Conda Build And Publish on Release
 
 on:
     release:
         types: [published]
+    push:
+        branches: [master]
     workflow_dispatch:
 
 jobs:
@@ -33,6 +35,6 @@ jobs:
               python: ${{ matrix.python-minor-version }}
               numpy: '22'
               channels: Numerics88, conda-forge, defaults
-              token: ${{ secrets.ANACONDA_TOKEN }}
-              publish: true
-              label: main
+              publish: ${{ github.event_name == 'release' }}
+              token: ${{ github.event_name == 'release' && secrets.ANACONDA_TOKEN || '' }}
+              label: ${{ github.event_name == 'release' && 'main' || '' }}
