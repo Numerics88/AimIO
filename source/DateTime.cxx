@@ -4,7 +4,7 @@
 #include "AimIO/DateTime.h"
 #include <iostream>
 #include <sstream>
-#include <format>
+// #include <format> (Removed for compatibility with CXX 14)
 #include <iomanip>
 // #include <boost/endian/conversion.hpp>
 // #include <boost/endian/arithmetic.hpp>
